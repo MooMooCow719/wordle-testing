@@ -4,9 +4,34 @@ const NUMBER_OF_GUESSES = 6;
 let guessesRemaining = NUMBER_OF_GUESSES;
 let currentGuess = [];
 let nextLetter = 0;
-let rightGuessString = WORDS[Math.floor(Math.random() * WORDS.length)];
+let rightGuessString = '';
+//edited above line
+let wordLength;
 
 console.log(rightGuessString);
+
+//slider code goes here, but not rn
+
+//start risky code
+
+const fetchWords = async (wordLength) => {
+    const response = await fetch(`https://api.datamuse.com/words?sp=?${'?'.repeat(wordLength - 1)}&max=10`);
+    const words = await response.json();
+    return words.map(wordObj => wordObj.word);
+};
+
+const setGameWords = async (wordLength) => {
+    const words = await fetchWords(wordLength);
+    rightGuessString = words[Math.floor(Math.random() * words.length)];
+    console.log(rightGuessString); 
+};
+
+document.getElementById('wordLengthSlider').addEventListener('input', (event) => {
+    wordLength = event.target.value;
+    setGameWords(wordLength);
+});
+
+//end risky code
 
 function initBoard() {
   let board = document.getElementById("game-board");
@@ -15,7 +40,7 @@ function initBoard() {
     let row = document.createElement("div");
     row.className = "letter-row";
 
-    for (let j = 0; j < 5; j++) {
+    for (let j = 0; j < wordLength; j++) {
       let box = document.createElement("div");
       box.className = "letter-box";
       row.appendChild(box);
@@ -61,7 +86,7 @@ function checkGuess() {
     guessString += val;
   }
 
-  if (guessString.length != 5) {
+  if (guessString.length != wordLength) {
     toastr.error("Not enough letters!");
     return;
   }
@@ -74,7 +99,7 @@ function checkGuess() {
   var letterColor = ["gray", "gray", "gray", "gray", "gray"];
 
   //check green
-  for (let i = 0; i < 5; i++) {
+  for (let i = 0; i < wordLength; i++) {
     if (rightGuess[i] == currentGuess[i]) {
       letterColor[i] = "green";
       rightGuess[i] = "#";
@@ -83,11 +108,11 @@ function checkGuess() {
 
   //check yellow
   //checking guess letters
-  for (let i = 0; i < 5; i++) {
+  for (let i = 0; i < wordLength; i++) {
     if (letterColor[i] == "green") continue;
 
     //checking right letters
-    for (let j = 0; j < 5; j++) {
+    for (let j = 0; j < wordLength; j++) {
       if (rightGuess[j] == currentGuess[i]) {
         letterColor[i] = "yellow";
         rightGuess[j] = "#";
@@ -95,7 +120,7 @@ function checkGuess() {
     }
   }
 
-  for (let i = 0; i < 5; i++) {
+  for (let i = 0; i < wordLength; i++) {
     let box = row.children[i];
     let delay = 250 * i;
     setTimeout(() => {
@@ -124,7 +149,7 @@ function checkGuess() {
 }
 
 function insertLetter(pressedKey) {
-  if (nextLetter === 5) {
+  if (nextLetter === wordLength) {
     return;
   }
   pressedKey = pressedKey.toLowerCase();
