@@ -13,26 +13,6 @@ console.log(rightGuessString);
 
 //slider code goes here, but not rn
 
-//start risky code
-/*
-const fetchWords = async (wordLength) => {
-    const response = await fetch(`https://api.datamuse.com/words?sp=?${'?'.repeat(wordLength - 1)}&max=10`);
-    const words = await response.json();
-    return words.map(wordObj => wordObj.word);
-};
-
-const setGameWords = async (wordLength) => {
-    const words = await fetchWords(wordLength);
-    rightGuessString = words[Math.floor(Math.random() * words.length)];
-    console.log(rightGuessString); 
-};
-
-document.getElementById('wordLengthSlider').addEventListener('input', (event) => {
-    wordLength = event.target.value;
-    setGameWords(wordLength);
-});
-*/
-//end risky code
 
 function initBoard() {
   let board = document.getElementById("game-board");
