@@ -15,21 +15,6 @@ slider.oninput = function() {
 };
 
 let rightGuessString;
-/*if (wordLength = 5){
-  import { WORDS } from "5words.js";
-} else if (wordLength = 6){
-  import { WORDS } from "6words.js";
-} else if (wordLength = 6){
-  import { WORDS } from "7words.js";
-} else if (wordLength = 6){
-  import { WORDS } from "8words.js";
-} else if (wordLength = 6){
-  import { WORDS } from "9words.js";
-} else if (wordLength = 6){
-  import { WORDS } from "10words.js";
-} else {
-  import { WORDS } from "15words.js";
-}*/
 
 if (wordLength === 5) {
   import('./5words.js').then(module => {
@@ -68,58 +53,14 @@ if (wordLength === 5) {
   });
 }
 
-/*function loadWords(wordLength) {
-  let modulePath;
-
-  switch (wordLength) {
-      case 5:
-          modulePath = './5words.js';
-          break;
-      case 6:
-          modulePath = './6words.js';
-          break;
-      case 7:
-          modulePath = './7words.js';
-          break;
-      case 8:
-          modulePath = './8words.js';
-          break;
-      case 9:
-          modulePath = './9words.js';
-          break;
-      case 10:
-          modulePath = './10words.js';
-          break;
-      case 15:
-          modulePath = './15words.js';
-          break;
-      default:
-          console.error('Invalid word length');
-          return;
-  }
-
-  import(modulePath).then(module => {
-      const { WORDS } = module;
-  }).catch(error => {
-      console.error('Failed to load words:', error);
-  });
-
-}*/
-
 
 
 const NUMBER_OF_GUESSES = 6;
 let guessesRemaining = NUMBER_OF_GUESSES;
 let currentGuess = [];
 let nextLetter = 0;
-//let rightGuessString = WORDS[Math.floor(Math.random() * WORDS.length)];
-//let rightGuessString = '';
-//edited above line
-//let rightGuessString = WORDS[Math.floor(Math.random() * WORDS.length)];
 
 console.log(rightGuessString);
-
-//slider code goes here, but not rn
 
 
 function initBoard() {
@@ -161,7 +102,7 @@ function shadeKeyBoard(letter, color) {
 }
 
 function deleteLetter() {
-  let row = document.getElementsByClassName("letter-row")[wordLength + 1 - guessesRemaining];
+  let row = document.getElementsByClassName("letter-row")[6 - guessesRemaining];
   let box = row.children[nextLetter - 1];
   box.textContent = "";
   box.classList.remove("filled-box");
@@ -170,7 +111,7 @@ function deleteLetter() {
 }
 
 function checkGuess() {
-  let row = document.getElementsByClassName("letter-row")[wordLength + 1 - guessesRemaining];
+  let row = document.getElementsByClassName("letter-row")[6 - guessesRemaining];
   let guessString = "";
   let rightGuess = Array.from(rightGuessString);
 
