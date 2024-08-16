@@ -8,6 +8,16 @@ let guessesRemaining = NUMBER_OF_GUESSES;
 let currentGuess = [];
 let nextLetter = 0;
 
+slider.oninput = function() {
+
+    if (this.value == 11) {
+        this.value = 15;
+    }
+    
+    wordLength = this.value;
+    output.innerHTML = wordLength;
+};
+
 let WORDS;
 
 output.innerHTML = wordLength;
