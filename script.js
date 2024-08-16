@@ -12,7 +12,6 @@ slider.oninput = function() {
     
     wordLength = this.value;
     output.innerHTML = wordLength;
-    loadWords(wordLength);
 };
 
 let rightGuessString;
@@ -140,6 +139,8 @@ function initBoard() {
     board.appendChild(row);
   }
 }
+
+initBoard();
 
 function shadeKeyBoard(letter, color) {
   for (const elem of document.getElementsByClassName("keyboard-button")) {
