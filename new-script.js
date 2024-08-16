@@ -88,14 +88,24 @@ function shadeKeyBoard(letter, color) {
 }
 
 function insertLetter(pressedKey) {
-    if (nextLetter === wordLength) {
+    if (nextLetter >= wordLength) { // Ensure we do not exceed the length
         return;
     }
     pressedKey = pressedKey.toLowerCase();
 
     let row = document.getElementsByClassName("letter-row")[6 - guessesRemaining];
+    if (!row) {
+        console.error("Row not found");
+        return;
+    }
+
     let box = row.children[nextLetter];
-    animateCSS(box, "pulse");
+    if (!box) {
+        console.error("Box not found");
+        return;
+    }
+
+    animateCSS(box, "pulse").catch(console.error);
     box.textContent = pressedKey;
     box.classList.add("filled-box");
     currentGuess.push(pressedKey);
@@ -104,7 +114,17 @@ function insertLetter(pressedKey) {
 
 function deleteLetter() {
     let row = document.getElementsByClassName("letter-row")[6 - guessesRemaining];
+    if (!row) {
+        console.error("Row not found");
+        return;
+    }
+
     let box = row.children[nextLetter - 1];
+    if (!box) {
+        console.error("Box not found");
+        return;
+    }
+
     box.textContent = "";
     box.classList.remove("filled-box");
     currentGuess.pop();
@@ -126,8 +146,8 @@ async function checkGuess() {
         return;
     }
 
-    // Example: Ensure WORDS is accessible in the scope
-    if (!WORDS || !WORDS.includes(guessString)) {
+    // Ensure WORDS is accessible in the scope
+    if (!WORDS.includes(guessString)) {
         toastr.error("Word not in list!");
         return;
     }
@@ -155,9 +175,14 @@ async function checkGuess() {
 
     for (let i = 0; i < wordLength; i++) {
         let box = row.children[i];
+        if (!box) {
+            console.error("Box not found");
+            return;
+        }
+
         let delay = 250 * i;
         setTimeout(() => {
-            animateCSS(box, "flipInX");
+            animateCSS(box, "flipInX").catch(console.error);
             box.style.backgroundColor = letterColor[i];
             shadeKeyBoard(guessString.charAt(i), letterColor[i]);
         }, delay);
@@ -180,20 +205,23 @@ async function checkGuess() {
 }
 
 const animateCSS = (element, animation, prefix = "animate__") =>
-    new Promise((resolve) => {
-        const animationName = `${prefix}${animation}`;
-        const node = element;
-        node.style.setProperty("--animate-duration", "0.3s");
+    new Promise((resolve, reject) => {
+        if (!element) {
+            reject("Element is undefined");
+            return;
+        }
 
-        node.classList.add(`${prefix}animated`, animationName);
+        const animationName = `${prefix}${animation}`;
+        element.style.setProperty("--animate-duration", "0.3s");
+        element.classList.add(`${prefix}animated`, animationName);
 
         function handleAnimationEnd(event) {
             event.stopPropagation();
-            node.classList.remove(`${prefix}animated`, animationName);
+            element.classList.remove(`${prefix}animated`, animationName);
             resolve("Animation ended");
         }
 
-        node.addEventListener("animationend", handleAnimationEnd, { once: true });
+        element.addEventListener("animationend", handleAnimationEnd, { once: true });
     });
 
 document.addEventListener("keyup", (e) => {
