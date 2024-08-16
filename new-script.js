@@ -8,6 +8,8 @@ let guessesRemaining = NUMBER_OF_GUESSES;
 let currentGuess = [];
 let nextLetter = 0;
 
+let WORDS;
+
 output.innerHTML = wordLength;
 
 async function initializeGame() {
@@ -42,7 +44,7 @@ async function initializeGame() {
 
     try {
         const module = await import(modulePath);
-        const { WORDS } = module;
+        ({ WORDS } = module);
         rightGuessString = WORDS[Math.floor(Math.random() * WORDS.length)];
         console.log('Right guess string:', rightGuessString);
         initBoard();
