@@ -53,3 +53,31 @@ h1 {
   cursor: pointer;
   text-transform: uppercase;
 }
+
+.slider {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 10px;
+  background: #cce7ff;
+  outline: none;
+  opacity: 0.9;
+  transition: opacity .15s ease-in-out;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 25px;
+  height: 25px;
+  background: #ffc0cb; 
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.slider::-moz-range-thumb {
+  width: 25px;
+  height: 25px;
+  background: #ffc0cb;
+  cursor: pointer;
+  border-radius: 50%;
+}
