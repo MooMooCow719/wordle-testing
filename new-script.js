@@ -16,6 +16,7 @@ slider.oninput = function() {
     
     wordLength = this.value;
     output.innerHTML = wordLength;
+    initializeGame();
     initBoard();
 };
 
