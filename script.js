@@ -14,43 +14,50 @@ slider.oninput = function() {
     output.innerHTML = wordLength;
 };
 
+console.log(wordLength);
+
 let rightGuessString;
 
 if (wordLength === 5) {
-  import('./5words.js').then(module => {
+  import('5words.js').then(module => {
       const { WORDS } = module;
       rightGuessString = WORDS[Math.floor(Math.random() * WORDS.length)];
   });
 } else if (wordLength === 6) {
-  import('./6words.js').then(module => {
+  import('6words.js').then(module => {
       const { WORDS } = module;
       rightGuessString = WORDS[Math.floor(Math.random() * WORDS.length)];
   });
 } else if (wordLength === 7) {
-  import('./7words.js').then(module => {
+  import('7words.js').then(module => {
       const { WORDS } = module;
       rightGuessString = WORDS[Math.floor(Math.random() * WORDS.length)];
   });
 } else if (wordLength === 8) {
-  import('./8words.js').then(module => {
+  import('8words.js').then(module => {
       const { WORDS } = module;
       rightGuessString = WORDS[Math.floor(Math.random() * WORDS.length)];
   });
 } else if (wordLength === 9) {
-  import('./9words.js').then(module => {
+  import('9words.js').then(module => {
       const { WORDS } = module;
       rightGuessString = WORDS[Math.floor(Math.random() * WORDS.length)];
   });
 } else if (wordLength === 10) {
-  import('./10words.js').then(module => {
+  import('10words.js').then(module => {
       const { WORDS } = module;
       rightGuessString = WORDS[Math.floor(Math.random() * WORDS.length)];
   });
 } else if (wordLength === 15) {
-  import('./15words.js').then(module => {
+  import('15words.js').then(module => {
       const { WORDS } = module;
       rightGuessString = WORDS[Math.floor(Math.random() * WORDS.length)];
   });
+} else {
+  import('5words.js').then(module => {
+    const { WORDS } = module;
+    rightGuessString = WORDS[Math.floor(Math.random() * WORDS.length)];
+});
 }
 
 
