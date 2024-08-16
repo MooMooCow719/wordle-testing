@@ -81,7 +81,7 @@ function initBoard() {
   }
 }
 
-window.onload = initBoard;
+window.onload = initBoard();
 
 function shadeKeyBoard(letter, color) {
   for (const elem of document.getElementsByClassName("keyboard-button")) {
@@ -99,6 +99,22 @@ function shadeKeyBoard(letter, color) {
       break;
     }
   }
+}
+
+function insertLetter(pressedKey) {
+  if (nextLetter === wordLength) {
+  //if (nextLetter === 5) {
+    return;
+  }
+  pressedKey = pressedKey.toLowerCase();
+
+  let row = document.getElementsByClassName("letter-row")[6 - guessesRemaining];
+  let box = row.children[nextLetter];
+  animateCSS(box, "pulse");
+  box.textContent = pressedKey;
+  box.classList.add("filled-box");
+  currentGuess.push(pressedKey);
+  nextLetter += 1;
 }
 
 function deleteLetter() {
@@ -184,22 +200,6 @@ function checkGuess() {
       toastr.info(`The right word was: "${rightGuessString}"`);
     }
   }
-}
-
-function insertLetter(pressedKey) {
-  if (nextLetter === wordLength) {
-  //if (nextLetter === 5) {
-    return;
-  }
-  pressedKey = pressedKey.toLowerCase();
-
-  let row = document.getElementsByClassName("letter-row")[wordLength + 1 - guessesRemaining];
-  let box = row.children[nextLetter];
-  animateCSS(box, "pulse");
-  box.textContent = pressedKey;
-  box.classList.add("filled-box");
-  currentGuess.push(pressedKey);
-  nextLetter += 1;
 }
 
 const animateCSS = (element, animation, prefix = "animate__") =>
