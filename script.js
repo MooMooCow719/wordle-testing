@@ -16,7 +16,7 @@ slider.oninput = function() {
 
 console.log(wordLength);
 
-let rightGuessString;
+let rightGuessString = '';
 
 if (wordLength === 5) {
   import('5words.js').then(module => {

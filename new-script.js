@@ -1,0 +1,241 @@
+const slider = document.getElementById("wordLengthSlider");
+const output = document.getElementById("slider-val");
+
+let wordLength = slider.value;
+let rightGuessString = '';
+const NUMBER_OF_GUESSES = 6;
+let guessesRemaining = NUMBER_OF_GUESSES;
+let currentGuess = [];
+let nextLetter = 0;
+
+output.innerHTML = wordLength;
+
+async function initializeGame() {
+    let modulePath = '';
+
+    switch (wordLength) {
+        case '5':
+            modulePath = './5words.js';
+            break;
+        case '6':
+            modulePath = './6words.js';
+            break;
+        case '7':
+            modulePath = './7words.js';
+            break;
+        case '8':
+            modulePath = './8words.js';
+            break;
+        case '9':
+            modulePath = './9words.js';
+            break;
+        case '10':
+            modulePath = './10words.js';
+            break;
+        case '15':
+            modulePath = './15words.js';
+            break;
+        default:
+            console.error('Unsupported word length');
+            return;
+    }
+
+    try {
+        const module = await import(modulePath);
+        const { WORDS } = module;
+        rightGuessString = WORDS[Math.floor(Math.random() * WORDS.length)];
+        console.log('Right guess string:', rightGuessString);
+        initBoard();
+    } catch (error) {
+        console.error('Error loading words module:', error);
+    }
+}
+
+function initBoard() {
+    let board = document.getElementById("game-board");
+    board.innerHTML = ''; // Clear previous board if any
+
+    for (let i = 0; i < NUMBER_OF_GUESSES; i++) {
+        let row = document.createElement("div");
+        row.className = "letter-row";
+
+        for (let j = 0; j < wordLength; j++) {
+            let box = document.createElement("div");
+            box.className = "letter-box";
+            row.appendChild(box);
+        }
+
+        board.appendChild(row);
+    }
+}
+
+function shadeKeyBoard(letter, color) {
+    for (const elem of document.getElementsByClassName("keyboard-button")) {
+        if (elem.textContent === letter) {
+            let oldColor = elem.style.backgroundColor;
+            if (oldColor === "green") {
+                return;
+            }
+
+            if (oldColor === "yellow" && color !== "green") {
+                return;
+            }
+
+            elem.style.backgroundColor = color;
+            break;
+        }
+    }
+}
+
+function insertLetter(pressedKey) {
+    if (nextLetter === wordLength) {
+        return;
+    }
+    pressedKey = pressedKey.toLowerCase();
+
+    let row = document.getElementsByClassName("letter-row")[6 - guessesRemaining];
+    let box = row.children[nextLetter];
+    animateCSS(box, "pulse");
+    box.textContent = pressedKey;
+    box.classList.add("filled-box");
+    currentGuess.push(pressedKey);
+    nextLetter += 1;
+}
+
+function deleteLetter() {
+    let row = document.getElementsByClassName("letter-row")[6 - guessesRemaining];
+    let box = row.children[nextLetter - 1];
+    box.textContent = "";
+    box.classList.remove("filled-box");
+    currentGuess.pop();
+    nextLetter -= 1;
+}
+
+async function checkGuess() {
+    if (!rightGuessString) {
+        console.error("rightGuessString is not set");
+        return;
+    }
+
+    let row = document.getElementsByClassName("letter-row")[6 - guessesRemaining];
+    let guessString = currentGuess.join('');
+    let rightGuess = Array.from(rightGuessString);
+
+    if (guessString.length != wordLength) {
+        toastr.error("Not enough letters!");
+        return;
+    }
+
+    // Example: Ensure WORDS is accessible in the scope
+    if (!WORDS || !WORDS.includes(guessString)) {
+        toastr.error("Word not in list!");
+        return;
+    }
+
+    var letterColor = Array(wordLength).fill("gray");
+
+    // Check for green
+    for (let i = 0; i < wordLength; i++) {
+        if (rightGuess[i] == currentGuess[i]) {
+            letterColor[i] = "green";
+            rightGuess[i] = "#";
+        }
+    }
+
+    // Check for yellow
+    for (let i = 0; i < wordLength; i++) {
+        if (letterColor[i] == "green") continue;
+        for (let j = 0; j < wordLength; j++) {
+            if (rightGuess[j] == currentGuess[i]) {
+                letterColor[i] = "yellow";
+                rightGuess[j] = "#";
+            }
+        }
+    }
+
+    for (let i = 0; i < wordLength; i++) {
+        let box = row.children[i];
+        let delay = 250 * i;
+        setTimeout(() => {
+            animateCSS(box, "flipInX");
+            box.style.backgroundColor = letterColor[i];
+            shadeKeyBoard(guessString.charAt(i), letterColor[i]);
+        }, delay);
+    }
+
+    if (guessString === rightGuessString) {
+        toastr.success("You guessed right! Game over!");
+        guessesRemaining = 0;
+        return;
+    } else {
+        guessesRemaining -= 1;
+        currentGuess = [];
+        nextLetter = 0;
+
+        if (guessesRemaining === 0) {
+            toastr.error("You've run out of guesses! Game over!");
+            toastr.info(`The right word was: "${rightGuessString}"`);
+        }
+    }
+}
+
+const animateCSS = (element, animation, prefix = "animate__") =>
+    new Promise((resolve) => {
+        const animationName = `${prefix}${animation}`;
+        const node = element;
+        node.style.setProperty("--animate-duration", "0.3s");
+
+        node.classList.add(`${prefix}animated`, animationName);
+
+        function handleAnimationEnd(event) {
+            event.stopPropagation();
+            node.classList.remove(`${prefix}animated`, animationName);
+            resolve("Animation ended");
+        }
+
+        node.addEventListener("animationend", handleAnimationEnd, { once: true });
+    });
+
+document.addEventListener("keyup", (e) => {
+    if (guessesRemaining === 0) {
+        return;
+    }
+
+    let pressedKey = String(e.key);
+    if (pressedKey === "Backspace" && nextLetter !== 0) {
+        deleteLetter();
+        return;
+    }
+
+    if (pressedKey === "Enter") {
+        checkGuess();
+        return;
+    }
+
+    let found = pressedKey.match(/[a-z]/gi);
+    if (!found || found.length > 1) {
+        return;
+    } else {
+        insertLetter(pressedKey);
+    }
+});
+
+document.getElementById("keyboard-cont").addEventListener("click", (e) => {
+    const target = e.target;
+
+    if (!target.classList.contains("keyboard-button")) {
+        return;
+    }
+    let key = target.textContent;
+
+    if (key === "Del") {
+        key = "Backspace";
+    }
+
+    document.dispatchEvent(new KeyboardEvent("keyup", { key: key }));
+});
+
+// Initialize the game on page load
+window.onload = () => {
+    initializeGame();
+};
