@@ -81,7 +81,7 @@ function initBoard() {
   }
 }
 
-initBoard();
+window.onload = initBoard;
 
 function shadeKeyBoard(letter, color) {
   for (const elem of document.getElementsByClassName("keyboard-button")) {
@@ -261,4 +261,4 @@ document.getElementById("keyboard-cont").addEventListener("click", (e) => {
   document.dispatchEvent(new KeyboardEvent("keyup", { key: key }));
 });
 
-initBoard();
+//initBoard();
