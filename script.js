@@ -53,12 +53,14 @@ if (wordLength === 5) {
       const { WORDS } = module;
       rightGuessString = WORDS[Math.floor(Math.random() * WORDS.length)];
   });
-} else {
+} 
+
+/*else {
   import('5words.js').then(module => {
     const { WORDS } = module;
     rightGuessString = WORDS[Math.floor(Math.random() * WORDS.length)];
 });
-}
+}*/
 
 
 
