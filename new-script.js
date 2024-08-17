@@ -27,7 +27,7 @@ slider.oninput = function() {
     guessesRemaining = 6;
 };
 
-button1.oninput = function(){
+button1.onclick = function(){
     wordLength = 15;
     output.innerHTML = wordLength;
     initializeGame();
@@ -36,7 +36,7 @@ button1.oninput = function(){
     guessesRemaining = 9;
 }
 
-button2.oninput = function(){
+button2.onclick = function(){
     wordLength = 20;
     output.innerHTML = wordLength;
     initializeGame();
