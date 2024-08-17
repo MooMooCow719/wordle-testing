@@ -70,7 +70,7 @@ button2.onclick = function(){
     }, 500);
 
     document.getElementById('title-bar').style.backgroundColor = "black";
-    body.style.backgroundColor = "red";
+    document.body.style.backgroundColor = "red";
 
 
     initializeGame();
@@ -90,7 +90,7 @@ button2.onclick = function(){
 }
 
 button3.onclick = function(){
-    if (wordLength < 11) {
+    if (wordLength < 11 || wordLength.contains("5")) {
         NUMBER_OF_GUESSES = 6;
         guessesRemaining = 6;
     } else if (wordLength < 20) {
@@ -115,19 +115,22 @@ async function initializeGame() {
         case '5':
             modulePath = './5words.js';
             break;
-        case '6':
+        case 5:
+            modulePath = "./5words.js";
+            break;
+        case 6:
             modulePath = './6words.js';
             break;
-        case '7':
+        case 7:
             modulePath = './7words.js';
             break;
-        case '8':
+        case 8:
             modulePath = './8words.js';
             break;
-        case '9':
+        case 9:
             modulePath = './9words.js';
             break;
-        case '10':
+        case 10:
             modulePath = './10words.js';
             break;
         case 15:
