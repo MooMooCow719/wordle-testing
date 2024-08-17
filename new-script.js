@@ -2,6 +2,7 @@ const slider = document.getElementById("wordLengthSlider");
 const output = document.getElementById("slider-val");
 const button1 = document.getElementById("fifteen");
 const button2 = document.getElementById("twenty");
+const button3 = document.getElementById("ng");
 
 document.getElementById('mode-toggle').addEventListener('change', function() {
     const currentMode = document.documentElement.getAttribute('mode');
@@ -24,6 +25,8 @@ slider.oninput = function() {
     output.innerHTML = wordLength;
     NUMBER_OF_GUESSES = 6;
     guessesRemaining = 6;
+    currentGuess = [];
+    nextLetter = 0;
     initializeGame();
     //initBoard();
 
@@ -34,9 +37,9 @@ button1.onclick = function(){
     output.innerHTML = wordLength;
     NUMBER_OF_GUESSES = 9;
     guessesRemaining = 9;
-    console.log(wordLength);
+    currentGuess = [];
+    nextLetter = 0;
     initializeGame();
-    console.log(wordLength);
     //initBoard();
 
 }
@@ -46,9 +49,31 @@ button2.onclick = function(){
     output.innerHTML = wordLength;
     NUMBER_OF_GUESSES = 12;
     guessesRemaining = 12;
-    console.log(wordLength);
+    currentGuess = [];
+    nextLetter = 0;
+    const sliderBar = document.getElementById('wordLengthSlider');
+    //const sliderThumb = document.getElementById('sliderThumb'); 
+    const b15 = document.getElementById('fifteen');
+
+    sliderBar.classList.add('shake');
+    //sliderThumb.classList.add('shake');
+    b15.classList.add('shake');
+
+    setTimeout(function() {
+        sliderBar.classList.remove('shake');
+        //sliderThumb.classList.remove('shake');
+        b15.classList.remove('shake');
+
+        sliderBar.classList.add('fall');
+        //sliderThumb.classList.add('fall');
+        b15.classList.add('fall');
+    }, 500);
+
+    document.getElementById('title-bar').style.color = black;
+    document.getElementById('title-bar').style.color = red;
+
+
     initializeGame();
-    console.log(wordLength);
     //initBoard();
  
 
@@ -64,10 +89,24 @@ button2.onclick = function(){
 
 }
 
+button3.onclick = function(){
+    if (NUMBER_OF_GUESSES = 6) {
+        NUMBER_OF_GUESSES = 6;
+        guessesRemaining = 6;
+    } else if (NUMBER_OF_GUESSES = 9) {
+        NUMBER_OF_GUESSES = 9;
+        guessesRemaining = 9;
+    } else {
+        location.reload();
+    }
+    currentGuess = [];
+    nextLetter = 0;
+    initializeGame();
+}
+
 import { okWORDS } from "./okwords.js";
 
 let WORDS;
-
 
 async function initializeGame() {
     let modulePath = '';
