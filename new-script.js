@@ -19,15 +19,25 @@ let nextLetter = 0;
 
 slider.oninput = function() {
 
-    if (parseInt(this.value) == 11) {
-        this.value = 15;
+    let sliderValue = parseInt(slider.value);
+
+    if (sliderValue === 11) {
+        slider.max = 15;   
+        sliderValue = 15;  
+        slider.value = 15; 
+    } else if (sliderValue < 11) {
+        slider.max = 10; 
     }
+
     
     wordLength = this.value;
     output.innerHTML = wordLength;
     initializeGame();
     initBoard();
+    guessesRemaining = 6;
 };
+
+import { okWORDS } from "./okwords.js";
 
 let WORDS;
 
@@ -170,7 +180,7 @@ async function checkGuess() {
     }
 
     // Ensure WORDS is accessible in the scope
-    if (!WORDS.includes(guessString)) {
+    if (!okWORDS.includes(guessString) && !WORDS.includes(guessString)) {
         toastr.error("Word not in list!");
         return;
     }
