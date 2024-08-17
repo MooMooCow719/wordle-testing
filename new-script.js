@@ -70,7 +70,7 @@ button2.onclick = function(){
     }, 500);
 
     document.getElementById('title-bar').style.backgroundColor = "black";
-    document.getElementById('body').style.backgroundColor = "red";
+    body.style.backgroundColor = "red";
 
 
     initializeGame();
