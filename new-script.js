@@ -21,7 +21,7 @@ let currentGuess = [];
 let nextLetter = 0;
 
 slider.oninput = function() {    
-    wordLength = this.value;
+    wordLength = parseInt(this.value);
     output.innerHTML = wordLength;
     NUMBER_OF_GUESSES = 6;
     guessesRemaining = 6;
@@ -70,7 +70,7 @@ button2.onclick = function(){
     }, 500);
 
     document.getElementById('title-bar').style.backgroundColor = "black";
-    document.getElementById('title-bar').style.backgroundColor = "red";
+    document.getElementById('body').style.backgroundColor = "red";
 
 
     initializeGame();
@@ -90,14 +90,14 @@ button2.onclick = function(){
 }
 
 button3.onclick = function(){
-    if (NUMBER_OF_GUESSES = 6) {
+    if (wordLength < 11) {
         NUMBER_OF_GUESSES = 6;
         guessesRemaining = 6;
-    } else if (NUMBER_OF_GUESSES = 9) {
+    } else if (wordLength < 20) {
         NUMBER_OF_GUESSES = 9;
         guessesRemaining = 9;
     } else {
-        location.reload();
+        window.location.reload();
     }
     currentGuess = [];
     nextLetter = 0;
@@ -112,22 +112,22 @@ async function initializeGame() {
     let modulePath = '';
 
     switch (wordLength) {
-        case '5':
+        case 5:
             modulePath = './5words.js';
             break;
-        case '6':
+        case 6:
             modulePath = './6words.js';
             break;
-        case '7':
+        case 7:
             modulePath = './7words.js';
             break;
-        case '8':
+        case 8:
             modulePath = './8words.js';
             break;
-        case '9':
+        case 9:
             modulePath = './9words.js';
             break;
-        case '10':
+        case 10:
             modulePath = './10words.js';
             break;
         case 15:
