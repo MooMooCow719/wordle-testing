@@ -34,7 +34,9 @@ button1.onclick = function(){
     output.innerHTML = wordLength;
     NUMBER_OF_GUESSES = 9;
     guessesRemaining = 9;
+    console.log(wordLength);
     initializeGame();
+    console.log(wordLength);
     //initBoard();
 
 }
@@ -44,7 +46,9 @@ button2.onclick = function(){
     output.innerHTML = wordLength;
     NUMBER_OF_GUESSES = 12;
     guessesRemaining = 12;
+    console.log(wordLength);
     initializeGame();
+    console.log(wordLength);
     //initBoard();
  
 
@@ -151,7 +155,7 @@ function insertLetter(pressedKey) {
     }
     pressedKey = pressedKey.toLowerCase();
 
-    let row = document.getElementsByClassName("letter-row")[6 - guessesRemaining];
+    let row = document.getElementsByClassName("letter-row")[NUMBER_OF_GUESSES - guessesRemaining];
     if (!row) {
         console.error("Row not found");
         return;
@@ -171,7 +175,7 @@ function insertLetter(pressedKey) {
 }
 
 function deleteLetter() {
-    let row = document.getElementsByClassName("letter-row")[6 - guessesRemaining];
+    let row = document.getElementsByClassName("letter-row")[NUMBER_OF_GUESSES - guessesRemaining];
     if (!row) {
         console.error("Row not found");
         return;
@@ -195,7 +199,7 @@ async function checkGuess() {
         return;
     }
 
-    let row = document.getElementsByClassName("letter-row")[6 - guessesRemaining];
+    let row = document.getElementsByClassName("letter-row")[NUMBER_OF_GUESSES - guessesRemaining];
     let guessString = currentGuess.join('');
     let rightGuess = Array.from(rightGuessString);
 
