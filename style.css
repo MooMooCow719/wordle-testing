@@ -124,8 +124,7 @@ h1 {
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(135deg, #070F2B, #1a2449);
-  transition: 0.4s;
+  background: #070F2B;
 }
 
 .slider:before {
@@ -136,11 +135,10 @@ h1 {
   left: 4px;
   bottom: 4px;
   background-color: white;
-  transition: 0.4s;
 }
 
 input:checked + #mode-slider {
-  background: linear-gradient(135deg, #fbfca9, #f9f783);
+  background: #fbfca9;
 }
 
 input:focus + #mode-slider {

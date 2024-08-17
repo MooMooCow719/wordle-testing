@@ -21,11 +21,13 @@ slider.oninput = function() {
 
     let sliderValue = parseInt(slider.value);
 
-    if (sliderValue === 11) {
+    if (sliderValue >= 10) {
         slider.max = 15;   
+    if(sliderValue === 11){
         sliderValue = 15;  
         slider.value = 15; 
-    } else if (sliderValue < 11) {
+    }
+    } else if (sliderValue < 10) {
         slider.max = 10; 
     }
 
