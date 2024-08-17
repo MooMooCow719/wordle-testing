@@ -1,3 +1,23 @@
+html {
+  font-family: 'Roboto', 'sans-serif';
+}
+
+body{
+  color:azure;
+  background-color: #2a2e36;
+}
+
+#title {
+  display:flex;
+  align-items: center;
+}
+
+
+
+#title-bar{
+  background-color: #1f2229;
+}
+
 h1 {
  text-align: center;
 }
@@ -39,6 +59,7 @@ h1 {
 
 #keyboard-cont div {
   display: flex;
+  background-color: #1f2229;
 }
 
 .second-row {
@@ -52,6 +73,8 @@ h1 {
   margin: 0 2px;
   cursor: pointer;
   text-transform: uppercase;
+  background-color: grey;
+  color:pink;
 }
 
 .slider {
@@ -71,7 +94,6 @@ h1 {
   height: 25px;
   background: #ffc0cb; 
   cursor: pointer;
-  border-radius: 50%;
 }
 
 .slider::-moz-range-thumb {
@@ -79,5 +101,74 @@ h1 {
   height: 25px;
   background: #ffc0cb;
   cursor: pointer;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+  align-items: end;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+#mode-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, #070F2B, #1a2449);
+  transition: 0.4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: 0.4s;
+}
+
+input:checked + #mode-slider {
+  background: linear-gradient(135deg, #fbfca9, #f9f783);
+}
+
+input:focus + #mode-slider {
+  box-shadow: 0 0 1px #fbfca9;
+}
+
+input:checked + .slider:before {
+  transform: translateX(26px);
+}
+
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
   border-radius: 50%;
+}
+
+[mode="light"] body {
+  background-color: cornsilk;
+  color:black;
+}
+
+[mode="light"] #title-bar {
+  background-color: rgb(5, 154, 57);
+  color:#f8f8d4;
+}
+
+[mode="light"] #keyboard-cont div {
+  background-color: #ffffff;
 }

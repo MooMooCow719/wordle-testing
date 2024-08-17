@@ -1,6 +1,15 @@
 const slider = document.getElementById("wordLengthSlider");
 const output = document.getElementById("slider-val");
 
+document.getElementById('mode-toggle').addEventListener('change', function() {
+    const currentMode = document.documentElement.getAttribute('mode');
+    if (currentMode === 'light') {
+        document.documentElement.removeAttribute('mode');
+    } else {
+        document.documentElement.setAttribute('mode', 'light');
+    }
+});
+
 let wordLength = slider.value;
 let rightGuessString = '';
 const NUMBER_OF_GUESSES = 6;
@@ -10,7 +19,7 @@ let nextLetter = 0;
 
 slider.oninput = function() {
 
-    if (this.value == 11) {
+    if (parseInt(this.value) == 11) {
         this.value = 15;
     }
     

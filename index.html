@@ -13,7 +13,13 @@
   />
 </head>
 <body>
-    <h1> Wordle Clone </h1>
+    <div id="title-bar">
+        <h1 id="title">Wordle Clone</h1>
+        <label class="switch" id="mode">
+            <input type="checkbox" id="mode-toggle">
+            <span class="slider round" id="mode-slider"></span>
+        </label>
+    </div>
     <div class="slidecontainer">
         <input type="range" min="5" max="11" value="5" class="slider" id="wordLengthSlider">
         <p>Letters chosen: <span id="slider-val">5</span></p>
