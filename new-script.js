@@ -1,5 +1,7 @@
 const slider = document.getElementById("wordLengthSlider");
 const output = document.getElementById("slider-val");
+const button1 = document.getElementById("15");
+const button2 = document.getElementById("20");
 
 document.getElementById('mode-toggle').addEventListener('change', function() {
     const currentMode = document.documentElement.getAttribute('mode');
@@ -12,32 +14,47 @@ document.getElementById('mode-toggle').addEventListener('change', function() {
 
 let wordLength = slider.value;
 let rightGuessString = '';
-const NUMBER_OF_GUESSES = 6;
+let NUMBER_OF_GUESSES = 6;
 let guessesRemaining = NUMBER_OF_GUESSES;
 let currentGuess = [];
 let nextLetter = 0;
 
-slider.oninput = function() {
-
-    let sliderValue = parseInt(slider.value);
-
-    if (sliderValue >= 10) {
-        slider.max = 15;   
-    if(sliderValue === 11){
-        sliderValue = 15;  
-        slider.value = 15; 
-    }
-    } else if (sliderValue < 10) {
-        slider.max = 10; 
-    }
-
-    
+slider.oninput = function() {    
     wordLength = this.value;
     output.innerHTML = wordLength;
     initializeGame();
     initBoard();
     guessesRemaining = 6;
 };
+
+button1.oninput = function(){
+    wordLength = 15;
+    output.innerHTML = wordLength;
+    initializeGame();
+    initBoard();
+    NUMBER_OF_GUESSES = 9;
+    guessesRemaining = 9;
+}
+
+button2.oninput = function(){
+    wordLength = 20;
+    output.innerHTML = wordLength;
+    initializeGame();
+    initBoard();
+    NUMBER_OF_GUESSES = 12;
+    guessesRemaining = 12;
+
+
+
+
+
+    alert("a̴̧̧̨̧̡̧̰͈̬̼̥̫̭͎͇̺̤̩̯͔̪̞̺͑͆̅̉̍̂̽͐̇͐̓͆̽͗̀̃̀̎̾̌̽̋͊̑͜͜͝͝b̶̧̦̪͔̳̞̦̞̮̠̥͔͈̗̤̝̗͍̟̱͕͎̦̝̦̥̤̱͙̱̰̦͑̏̏̽̓̀͂̀̓̅̒̅͒̈̏͑͘̚̚͝ͅå̴̢͈̲̘̩̱͍̥̹̣͉͙̩̫̜̙̦̟̬̘̖̮̙̹̞̳̥̱̤̼̭͎͊̏͌͌̈́̍̈́̇̒̿̀̋͊̓̈͒͘͘̚͜͠n̵̢̗̜̠̥̞̈́̄̐́͋̂͠͝͝d̴̨̛̞̗̟̩͙̤̤̑̐̀̍̂̂̈́̿͌̑͆̏̆̊͋̾͘͝ở̶̧̟͇̯͇̥̰̜̟͈̈́̂͛̌͂́̂̾̏͌̄̑͘ǹ̷̡̠̘͚̠̙̣͔̝͍̞̞̟̙̪̠̟̳̩̏̔͛̍̏̎͂̑́̌͑́́͒̇͆̋̅̕͠͠ͅͅ ̴̡̧̢̡̢̡̡͙̯͖̺̠̬̣͎͇̦̖͙̖̰͍̙̥̦͎̝̹͇̪̳̳̳̣̱͇̫͎̺̪̹̬͕̾̂͊̐͗̑̆̀̎͒̓̓̅͋͘͝͝ͅͅa̶̧̛͍̳̫̱͓̗͕̘̱̟͉̺͍̗͈͚͇̭̮̦͉̝̜̥̰̤͔̭̳͎̿̿̾͌̏͛͛̆̾̏́̈́̈́̌̀̓̊̄̆̀̓̔̂̀̃̾͂̎́̑̍̐̈́̔̉̇̎̅͆̓̓͐̿̄̽͐̚͜͝͠ͅl̶̡̨̧̡̢̧̫͍̰̺̹͔͎͖͙̘͎̫̮̟̟̭̦̪͙̠͖̞̞͕̰͙͖̤̬͔̰͔̩̮̲̈́̎̅̔̐́̏̄̔̆͛͛̊̒̽͛̽̒̽̀͘̚l̷̨̧̛̯̤̮̼̻̖͔͉͕̟̯͍̻̱̘̟̙̳̘̪̠̦̖͇͍͎̉̊͒̍̂̚͜͝͠ͅ ̸̢̢̡̡̨̛̞̦̠̠̹̟̺̘͎͈̳̞̞͕͈̻̳̯̖̲̗̪̯̠̩̪̬̭̓̾̌̍̅͌͆̐̔̿̈́̀̏̈́̎̿͋͑͛̐͑͑̐̔̈̀͗͐̽̀̊̍̋̽̎̏̈̎̓̎̆̄͆̑́̚͜͠͝h̷̡͉̩̳̜̹͈̦̘͔͉̟̠̺̩̼͈̞̹͔͚̮̤͓͗̓̾̈́͌̐̓́̑̈̌̍͂̈́̊̍̇̅͆̎͒̃̿̌̉͌͌͆́̉̔̾͊͊͑̒̚͘̚̕͜͜͠͝͝͝ȍ̵͖̼͙̮̞̼̘͓͖̜͖͚̥͍͔̣̪͈̪̻̇̽̀̎̈́̂̈̇͆̇̉̓̒̋́̾́̔̔̾ͅp̶̡̢̣̥̣̦͎̻̣̗̗̼̭̦̦̠̮͕͓̟͕͙̠̩̠̰̦̣̈̍ͅë̸͉̙̗͔̼̣̙̍̌̐̆͘ ̴̢̢̢̧̛͈̮̰͉̦̩̖͎̼̼̰͔͖̹̙̯̪͇͉̫͈̉̾͌͆̇͂̊̽̀̂̈̔̌̓̃̀͑̑̍́̈́̃̊̅̐̓̀̐͠͝͠y̴̢̢̡̛̛̻̮̩̙̘̹͓͎̥̬̞̘̯̟͈͍̞̋͗̀̅̑̏̓̂̎̉̂̋̋̄͑̊́̉̆͋̈̾́̈́͝͝͝ͅḛ̵̛̓̃̇͌͑͛͛͐̍͋̐̌͑̓̅̈́̽̅̿̈́͂͌͆̈̊́̈́͘͘̚͝ ̷̭̤͔̳̳̰̮͔̹̗͋̐̽̅̿̉̏̑̄̊̈́̐́̽͛̆́̒̈̈̚̕ͅw̶̯͍̫̉̉̐͊͒͐́̋̆͌̐̔͋̐͋͗̀̅͆́̊̿̈́̇̆̂̊̓͘̚͠͝͝h̴̡̛̞̖̲͕͓̳͚̲͔̗̲͓͔̺̘͓́̎͌̎̀̈́̄͑̀̄͊͛̅̊̐͆͂̆̆̿̆̃͒̋̈́͋̏͘̕̕͜͠͠͠o̴̧̝̯̱͖͙͌̈͗̓̈̀́̏̇̉̀͋̏͑̒͂͊̅́̐̊̓͋̑͋̈́̔̈́̌͆͗̂̆͆̆̊̎̈́͘̚̕͘͝͝͝͝͝ ̴̢̨̛̛͕̮̣͖͍͓̠̘͓̳̮͍̪̤̇͐͒̒͋͂́̊̌̈́̎̊̍̌̍̎̐̔̾͋̔̍̀̓̍̌̾͂̊̎̅̓́̆͆̓̀̒͘̕̕͝͠͠e̷̡̧̨̜̤̦̘̝͙̹̺̩̟̲̠̾̀̾͛̽̓̂͋̉̋́̿̂̇̀́̓͂̎͘ñ̸̢̥͍̼̭̺̦̰̪͈̀̽̄̀̒̎̂͘͜ͅţ̶̡̥̯̝̬̝̰̦̫̱̟̭͙̪̱̝̓̀̈́̅̒̓͊̋̀͆͑̀̋̄͒̀̽̍̋͊̋͒̅̀̏͗͗͋͗͘̚̚̚͝ę̸̨̨̘̫̟̠̪̝͖͔͍͇̘͔̤̯̯̠͙̰̱̬̥̘͓̼̻̟̮̦͕͉̫̈́̒̉̊͌̏̊̑͋̄̓͐̃̂̃̑͒͒́̉͊̚͘̕̕͝ͅͅȑ̶̨̨̧̻̠̭͖͔̺̟̗͔͔̦͖͇̲̣̘̝̫̠̟͔̜̩̦̲͖͉̪̪͔̭̫̟̜͍̦̫̲̎͒̊͒̂̊̄͜ͅͅ ̷̢̧̡̢̧̛͎͚̖̣͕̪̯̲̯̲͖̭͉̝̠̳͇͍̺̠̞͚͓̥̖͕͖̱͖͉̖̠͙͙̙̝͚͎̹͍̻̮̐̓͆̓̃̂̽̂̓̏̈́͆̎̐͂̄̇͒͒̒̈́̇͌̎̌̚̕͜͝͝h̴̡̡̢̞̞̦̱̭̲̗̣̰̬̰̳̘̥͕̝̦͕͉͖̺̜̪͕͍̤̗͖̻̖̥̲̤̳̪͓̙̟͖̜͓̱͖̫̫̏̒̾͆̇͐͒̎͂͐̕͝ḙ̵̛̲̬̭͉͙̖̱̉̈̆̾̄̎̊̓͐͑̈͌͌̄̆̏͂̋̐̎̈́̈̂͆̌͘͘͜ͅr̴͓̗͎͔̣̙̥̱̪̥̹͍͚̠̦͙͚̿͌̊͒̀͆̿̅̌̓͘͘͝͝ͅe̴̡̨̨̧̛̛̖̘͔̟̩̤̬͚͓̹͈͚̖͈̳͔̣̠̱̘͎̙͕̟̩̻̫͍̫͈͚͍̜̬̟̼̬̥̻̾͊̽̈́̊̀̄͌̈́͌̎̉́̆̎͌̈̓͒̏̈́̄͋́̀̀͌̆͆̓͐̈́̀̍͋̽̅̍̓͒̋͗͊̕͜͜͠͠͝");
+
+
+
+
+
+}
 
 import { okWORDS } from "./okwords.js";
 
@@ -69,6 +86,9 @@ async function initializeGame() {
             break;
         case '15':
             modulePath = './15words.js';
+            break;
+        case '20':
+            modulePath = './20words.js';
             break;
         default:
             console.error('Unsupported word length');
