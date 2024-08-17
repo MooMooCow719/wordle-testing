@@ -22,28 +22,31 @@ let nextLetter = 0;
 slider.oninput = function() {    
     wordLength = this.value;
     output.innerHTML = wordLength;
-    initializeGame();
-    initBoard();
     NUMBER_OF_GUESSES = 6;
     guessesRemaining = 6;
+    initializeGame();
+    initBoard();
+
 };
 
 button1.onclick = function(){
     wordLength = 15;
     output.innerHTML = wordLength;
-    initializeGame();
-    initBoard();
     NUMBER_OF_GUESSES = 9;
     guessesRemaining = 9;
+    initializeGame();
+    initBoard();
+
 }
 
 button2.onclick = function(){
     wordLength = 20;
     output.innerHTML = wordLength;
-    initializeGame();
-    initBoard();
     NUMBER_OF_GUESSES = 12;
     guessesRemaining = 12;
+    initializeGame();
+    initBoard();
+ 
 
 
 
