@@ -1,7 +1,7 @@
 const slider = document.getElementById("wordLengthSlider");
 const output = document.getElementById("slider-val");
-const button1 = document.getElementById("15");
-const button2 = document.getElementById("20");
+const button1 = document.getElementById("fifteen");
+const button2 = document.getElementById("fifteen");
 
 document.getElementById('mode-toggle').addEventListener('change', function() {
     const currentMode = document.documentElement.getAttribute('mode');
