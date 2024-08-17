@@ -91,10 +91,10 @@ async function initializeGame() {
         case '10':
             modulePath = './10words.js';
             break;
-        case '15':
+        case 15:
             modulePath = './15words.js';
             break;
-        case '20':
+        case 20:
             modulePath = './20words.js';
             break;
         default:
