@@ -64,8 +64,6 @@ import { okWORDS } from "./okwords.js";
 
 let WORDS;
 
-output.innerHTML = wordLength;
-
 async function initializeGame() {
     let modulePath = '';
 
@@ -94,9 +92,6 @@ async function initializeGame() {
         case '20':
             modulePath = './20words.js';
             break;
-        default:
-            console.error('Unsupported word length');
-            return;
     }
 
     try {
