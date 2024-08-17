@@ -112,22 +112,22 @@ async function initializeGame() {
     let modulePath = '';
 
     switch (wordLength) {
-        case 5:
+        case '5':
             modulePath = './5words.js';
             break;
-        case 6:
+        case '6':
             modulePath = './6words.js';
             break;
-        case 7:
+        case '7':
             modulePath = './7words.js';
             break;
-        case 8:
+        case '8':
             modulePath = './8words.js';
             break;
-        case 9:
+        case '9':
             modulePath = './9words.js';
             break;
-        case 10:
+        case '10':
             modulePath = './10words.js';
             break;
         case 15:
