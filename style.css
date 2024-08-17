@@ -87,6 +87,13 @@ h1 {
   color:pink;
 }
 
+#extra-diff-buttons{
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  align-items: center;
+}
+
 #fifteen, #twenty {
   background-color: #ff2c2c;
   border: none;
@@ -100,6 +107,7 @@ h1 {
   cursor: pointer;
   border-radius: 8px;
   justify-content: center;
+  align-items: center;
 }
 
 #ng {
@@ -115,6 +123,7 @@ h1 {
   cursor: pointer;
   border-radius: 8px;
   justify-content: center;
+  align-items: center;
 }
 
 .slider {
