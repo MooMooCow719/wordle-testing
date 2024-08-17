@@ -69,8 +69,8 @@ button2.onclick = function(){
         b15.classList.add('fall');
     }, 500);
 
-    document.getElementById('title-bar').style.color = black;
-    document.getElementById('title-bar').style.color = red;
+    document.getElementById('title-bar').style.backgroundColor = "black";
+    document.getElementById('title-bar').style.backgroundColor = "red";
 
 
     initializeGame();
