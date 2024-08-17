@@ -126,6 +126,12 @@ h1 {
   align-items: center;
 }
 
+#ng-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .slider {
   -webkit-appearance: none;
   width: 100%;
@@ -157,7 +163,6 @@ h1 {
   display: inline-block;
   width: 60px;
   height: 34px;
-  align-items: end;
 }
 
 .switch input {
@@ -173,7 +178,8 @@ h1 {
   left: 0;
   right: 0;
   bottom: 0;
-  background: #070F2B;
+  background: linear-gradient(135deg, #070F2B, #1a2449);
+  transition: 0.4s;
 }
 
 .slider:before {
@@ -184,10 +190,11 @@ h1 {
   left: 4px;
   bottom: 4px;
   background-color: white;
+  transition: 0.4s;
 }
 
 input:checked + #mode-slider {
-  background: #fbfca9;
+  background: linear-gradient(135deg, #fbfca9, #f9f783);
 }
 
 input:focus + #mode-slider {
@@ -200,6 +207,10 @@ input:checked + .slider:before {
 
 .slider.round {
   border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
 }
 
 .slider.round:before {

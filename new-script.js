@@ -24,6 +24,7 @@ slider.oninput = function() {
     output.innerHTML = wordLength;
     initializeGame();
     initBoard();
+    NUMBER_OF_GUESSES = 6;
     guessesRemaining = 6;
 };
 
