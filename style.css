@@ -4,12 +4,14 @@ html {
 }
 
 body{
+  font-family: 'Roboto', sans-serif;
   color:azure;
   background-color: #2a2e36;
   overflow-x: hidden;
 }
 
 #title {
+  font-family: 'Roboto', sans-serif;
   display:flex;
   justify-content: center;
 }
@@ -17,6 +19,7 @@ body{
 
 
 #title-bar{
+  font-family: 'Roboto', sans-serif;
   background-color: #1f2229;
   margin: 0px 0px 10px 0px;
 }
@@ -248,4 +251,16 @@ input:checked + .slider:before {
 
 [mode="light"] #keyboard-cont div {
   background-color: #ffffff;
+}
+
+[evilness="evil"] #title-bar {
+  background-color: black;
+}
+
+[evilness="evil"] body {
+  background-color: red;
+}
+
+[evilness="evil"] #keyboard-cont div {
+  background-color: #6b0909;
 }

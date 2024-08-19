@@ -3,15 +3,8 @@ const output = document.getElementById("slider-val");
 const button1 = document.getElementById("fifteen");
 const button2 = document.getElementById("twenty");
 const button3 = document.getElementById("ng");
-
-document.getElementById('mode-toggle').addEventListener('change', function() {
-    const currentMode = document.documentElement.getAttribute('mode');
-    if (currentMode === 'light') {
-        document.documentElement.removeAttribute('mode');
-    } else {
-        document.documentElement.setAttribute('mode', 'light');
-    }
-});
+const modeToggle = document.getElementById('mode-toggle');
+const bgm = document.getElementById("bgm");
 
 let wordLength = slider.value;
 let rightGuessString = '';
@@ -51,26 +44,28 @@ button2.onclick = function(){
     guessesRemaining = 12;
     currentGuess = [];
     nextLetter = 0;
-    const sliderBar = document.getElementById('wordLengthSlider');
-    //const sliderThumb = document.getElementById('sliderThumb'); 
-    const b15 = document.getElementById('fifteen');
 
-    sliderBar.classList.add('shake');
-    //sliderThumb.classList.add('shake');
-    b15.classList.add('shake');
+    slider.classList.add('shake');
+    button1.classList.add('shake');
+    modeToggle.classList.add('shake');
 
     setTimeout(function() {
-        sliderBar.classList.remove('shake');
-        //sliderThumb.classList.remove('shake');
-        b15.classList.remove('shake');
+        slider.classList.remove('shake');
+        button1.classList.remove('shake');
+        modeToggle.classList.remove('shake');
 
-        sliderBar.classList.add('fall');
-        //sliderThumb.classList.add('fall');
-        b15.classList.add('fall');
-    }, 500);
+        slider.classList.add('fall');
+        button1.classList.add('fall');
+        modeToggle.classList.add('fall');
+    }, 2000);
 
-    document.getElementById('title-bar').style.backgroundColor = "black";
-    document.body.style.backgroundColor = "red";
+    document.documentElement.setAttribute('evilness', 'evil');
+    bgm.src = "evilbgm.mp3";
+
+
+
+    //document.getElementById('title-bar').style.backgroundColor = "black";
+    //document.body.style.backgroundColor = "red";
 
 
     initializeGame();
@@ -98,7 +93,13 @@ button3.onclick = function(){
         guessesRemaining = 9;
     } else {
         window.location.reload();
+        console.log("reloaded!");
     }
+    slider.classList.remove('fall');
+    button1.classList.remove('fall');
+    modeToggle.classList.remove('fall');
+    document.documentElement.removeAttribute('evilness');
+    bgm.src = "calmbgm.mp3";
     currentGuess = [];
     nextLetter = 0;
     initializeGame();
@@ -149,6 +150,7 @@ async function initializeGame() {
         ({ WORDS } = module);
         rightGuessString = WORDS[Math.floor(Math.random() * WORDS.length)];
         console.log('Right guess string:', rightGuessString);
+        bgm.src = "calmbgm.mp3";
         initBoard();
     } catch (error) {
         console.error('Error loading words module:', error);
@@ -157,7 +159,7 @@ async function initializeGame() {
 
 function initBoard() {
     let board = document.getElementById("game-board");
-    board.innerHTML = ''; // Clear previous board if any
+    board.innerHTML = ''; 
 
     for (let i = 0; i < NUMBER_OF_GUESSES; i++) {
         let row = document.createElement("div");
@@ -192,7 +194,7 @@ function shadeKeyBoard(letter, color) {
 }
 
 function insertLetter(pressedKey) {
-    if (nextLetter >= wordLength) { // Ensure we do not exceed the length
+    if (nextLetter >= wordLength) {
         return;
     }
     pressedKey = pressedKey.toLowerCase();
@@ -250,7 +252,6 @@ async function checkGuess() {
         return;
     }
 
-    // Ensure WORDS is accessible in the scope
     if (!okWORDS.includes(guessString) && !WORDS.includes(guessString)) {
         toastr.error("Word not in list!");
         return;
@@ -258,7 +259,6 @@ async function checkGuess() {
 
     var letterColor = Array(wordLength).fill("gray");
 
-    // Check for green
     for (let i = 0; i < wordLength; i++) {
         if (rightGuess[i] == currentGuess[i]) {
             letterColor[i] = "green";
@@ -266,7 +266,6 @@ async function checkGuess() {
         }
     }
 
-    // Check for yellow
     for (let i = 0; i < wordLength; i++) {
         if (letterColor[i] == "green") continue;
         for (let j = 0; j < wordLength; j++) {
@@ -367,7 +366,6 @@ document.getElementById("keyboard-cont").addEventListener("click", (e) => {
     document.dispatchEvent(new KeyboardEvent("keyup", { key: key }));
 });
 
-// Initialize the game on page load
 window.onload = () => {
     initializeGame();
 };
