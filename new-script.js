@@ -85,7 +85,7 @@ button2.onclick = function(){
 }
 
 button3.onclick = function(){
-    if (wordLength < 11 || wordLength.contains("5")) {
+    if (wordLength < 11 || wordLength.includes("5")) {
         NUMBER_OF_GUESSES = 6;
         guessesRemaining = 6;
     } else if (wordLength < 20) {
