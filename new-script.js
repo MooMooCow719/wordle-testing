@@ -154,6 +154,10 @@ async function initializeGame() {
         rightGuessString = WORDS[Math.floor(Math.random() * WORDS.length)];
         console.log('Right guess string:', rightGuessString);
         //bgm.src = "calmbgm.mp3";
+        console.log(bgm.src);
+        if (!(bgm.src.includes("calm"))){
+            bgm.src = "calmbgm.mp3";
+        }
         initBoard();
     } catch (error) {
         console.error('Error loading words module:', error);
