@@ -100,7 +100,9 @@ button3.onclick = function(){
     button1.classList.remove('fall');
     modeToggle.classList.remove('fall');
     document.documentElement.removeAttribute('evilness');
-    bgm.src = "calmbgm.mp3";
+    if (bgm.src.includes("evil")){
+        bgm.src = "calmbgm.mp3";
+    }
     currentGuess = [];
     nextLetter = 0;
     initializeGame();
@@ -368,6 +370,6 @@ document.getElementById("keyboard-cont").addEventListener("click", (e) => {
 });
 
 window.onload = () => {
-    bgm.src = "calmbgm.mp3";
+    //bgm.src = "calmbgm.mp3";
     initializeGame();
 };
