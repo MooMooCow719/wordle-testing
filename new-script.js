@@ -5,7 +5,7 @@ const button2 = document.getElementById("twenty");
 const button3 = document.getElementById("ng");
 const modeToggle = document.getElementById('mode-toggle');
 let bgm = document.getElementById("bgm");
-bgm.src = "calmbgm.mp3";
+//bgm.src = "calmbgm.mp3";
 
 let wordLength = slider.value;
 let rightGuessString = '';
@@ -368,5 +368,6 @@ document.getElementById("keyboard-cont").addEventListener("click", (e) => {
 });
 
 window.onload = () => {
+    bgm.src = "calmbgm.mp3";
     initializeGame();
 };
