@@ -22,6 +22,7 @@ slider.oninput = function() {
     currentGuess = [];
     nextLetter = 0;
     initializeGame();
+    bgm.src = "calmbgm.mp3";
     //initBoard();
 
 };
