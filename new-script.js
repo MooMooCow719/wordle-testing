@@ -7,7 +7,7 @@ const modeToggle = document.getElementById('mode-toggle');
 let bgm = document.getElementById("bgm");
 //bgm.src = "calmbgm.mp3";
 
-let wordLength = slider.value;
+let wordLength = parseInt(slider.value);
 let rightGuessString = '';
 let NUMBER_OF_GUESSES = 6;
 let guessesRemaining = NUMBER_OF_GUESSES;
@@ -22,10 +22,14 @@ slider.oninput = function() {
     currentGuess = [];
     nextLetter = 0;
     initializeGame();
-    bgm.src = "calmbgm.mp3";
+    //bgm.src = "calmbgm.mp3";
     //initBoard();
 
 };
+
+function setBGM(){
+    bgm.src = "calmbgm.mp3";
+}
 
 button1.onclick = function(){
     wordLength = 15;
@@ -87,7 +91,7 @@ button2.onclick = function(){
 }
 
 button3.onclick = function(){
-    if (wordLength < 11 || wordLength.includes("5")) {
+    if (wordLength < 11) {
         NUMBER_OF_GUESSES = 6;
         guessesRemaining = 6;
     } else if (wordLength < 20) {
@@ -102,9 +106,9 @@ button3.onclick = function(){
     modeToggle.classList.remove('fall');
     document.documentElement.removeAttribute('evilness');
     if (bgm.src.includes("evil")){
-        bgm.src = "calmbgm.mp3";
+        setBGM();
     }
-    bgm.play();
+    //bgm.play();
     currentGuess = [];
     nextLetter = 0;
     initializeGame();
@@ -374,5 +378,6 @@ document.getElementById("keyboard-cont").addEventListener("click", (e) => {
 
 window.onload = () => {
     //bgm.src = "calmbgm.mp3";
+    setBGM();
     initializeGame();
 };
