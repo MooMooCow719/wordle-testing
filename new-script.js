@@ -4,7 +4,8 @@ const button1 = document.getElementById("fifteen");
 const button2 = document.getElementById("twenty");
 const button3 = document.getElementById("ng");
 const modeToggle = document.getElementById('mode-toggle');
-const bgm = document.getElementById("bgm");
+let bgm = document.getElementById("bgm");
+bgm.src = "calmbgm.mp3";
 
 let wordLength = slider.value;
 let rightGuessString = '';
@@ -150,7 +151,7 @@ async function initializeGame() {
         ({ WORDS } = module);
         rightGuessString = WORDS[Math.floor(Math.random() * WORDS.length)];
         console.log('Right guess string:', rightGuessString);
-        bgm.src = "calmbgm.mp3";
+        //bgm.src = "calmbgm.mp3";
         initBoard();
     } catch (error) {
         console.error('Error loading words module:', error);
