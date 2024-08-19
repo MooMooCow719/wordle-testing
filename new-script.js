@@ -103,6 +103,7 @@ button3.onclick = function(){
     if (bgm.src.includes("evil")){
         bgm.src = "calmbgm.mp3";
     }
+    bgm.play();
     currentGuess = [];
     nextLetter = 0;
     initializeGame();
