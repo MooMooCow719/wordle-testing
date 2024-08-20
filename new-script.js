@@ -13,6 +13,21 @@ let NUMBER_OF_GUESSES = 6;
 let guessesRemaining = NUMBER_OF_GUESSES;
 let currentGuess = [];
 let nextLetter = 0;
+let interactions = 0;
+
+document.addEventListener('click', function startBGM() {
+    if(interactions === 0){
+        setBGM();
+    }
+    interactions++;
+});
+document.addEventListener('keypress', function startBGM() {
+    if(interactions === 0){
+        setBGM();
+    }
+    interactions++;
+});
+
 
 slider.oninput = function() {    
     wordLength = parseInt(this.value);
