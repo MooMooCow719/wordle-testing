@@ -32,6 +32,9 @@ document.addEventListener('keypress', function startBGM() {
 slider.oninput = function() {    
     wordLength = parseInt(this.value);
     output.innerHTML = wordLength;
+    for (const elem of document.getElementsByClassName("keyboard-button")) {
+        elem.style.backgroundColor = "grey";
+    }
     NUMBER_OF_GUESSES = 6;
     guessesRemaining = 6;
     currentGuess = [];

@@ -264,3 +264,7 @@ input:checked + .slider:before {
 [evilness="evil"] #keyboard-cont div {
   background-color: #6b0909;
 }
+
+[evilness="evil"] .keyboard-button {
+  color: #a10303;
+}
