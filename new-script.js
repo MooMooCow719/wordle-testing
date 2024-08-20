@@ -5,6 +5,7 @@ const button2 = document.getElementById("twenty");
 const button3 = document.getElementById("ng");
 const modeToggle = document.getElementById('mode-toggle');
 let bgm = document.getElementById("bgm");
+const muteButton = document.getElementById("mute");
 //bgm.src = "calmbgm.mp3";
 
 let wordLength = parseInt(slider.value);
@@ -49,6 +50,17 @@ function setBGM(){
     bgm.src = "calmbgm.mp3";
 }
 
+muteButton.onclick = function(){
+    if(bgm.getAttribute("muted") === false){
+        bgm.setAttribute("muted", true);
+        muteButton.src = "no-sound.png";
+    } else {
+        bgm.setAttribute("muted", false);
+        muteButton.src = "sound.png";
+    }
+
+}
+
 button1.onclick = function(){
     wordLength = 15;
     output.innerHTML = wordLength;
@@ -56,6 +68,9 @@ button1.onclick = function(){
     guessesRemaining = 9;
     currentGuess = [];
     nextLetter = 0;
+    for (const elem of document.getElementsByClassName("keyboard-button")) {
+        elem.style.backgroundColor = "grey";
+    }
     initializeGame();
     //initBoard();
 
@@ -278,7 +293,7 @@ async function checkGuess() {
     let guessString = currentGuess.join('');
     let rightGuess = Array.from(rightGuessString);
 
-    if (guessString.length != wordLength) {
+    if (guessString.length < wordLength) {
         toastr.error("Not enough letters!");
         return;
     }
@@ -399,6 +414,8 @@ document.getElementById("keyboard-cont").addEventListener("click", (e) => {
 
 window.onload = () => {
     //bgm.src = "calmbgm.mp3";
+    muteButton.src = "no-sound.png";
+    muteButton.setAttribute("muted", true);
     setBGM();
     initializeGame();
 };

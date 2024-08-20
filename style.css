@@ -16,6 +16,14 @@ body{
   justify-content: center;
 }
 
+#mute{
+  height: 30px;
+  width: 30px;
+  display: flex;
+  justify-content: right;
+  cursor: pointer;
+}
+
 
 
 #title-bar{
