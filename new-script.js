@@ -14,9 +14,9 @@ let NUMBER_OF_GUESSES = 6;
 let guessesRemaining = NUMBER_OF_GUESSES;
 let currentGuess = [];
 let nextLetter = 0;
-let interactions = 0;
+//let interactions = 0;
 
-document.addEventListener('click', function startBGM() {
+/*document.addEventListener('click', function startBGM() {
     if(interactions === 0){
         setBGM();
     }
@@ -27,7 +27,7 @@ document.addEventListener('keypress', function startBGM() {
         setBGM();
     }
     interactions++;
-});
+});*/
 
 
 slider.oninput = function() {    
@@ -54,9 +54,11 @@ muteButton.onclick = function(){
     if(bgm.getAttribute("muted") == false){
         bgm.setAttribute("muted", true);
         muteButton.src = "no-sound.png";
+        setBGM();
     } else {
         bgm.setAttribute("muted", false);
         muteButton.src = "sound.png";
+        setBGM();
     }
 
 }
