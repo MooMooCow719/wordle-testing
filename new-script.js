@@ -51,7 +51,7 @@ function setBGM(){
 }
 
 muteButton.onclick = function(){
-    if(bgm.getAttribute("muted") === false){
+    if(bgm.getAttribute("muted") == false){
         bgm.setAttribute("muted", true);
         muteButton.src = "no-sound.png";
     } else {
