@@ -124,6 +124,9 @@ button3.onclick = function(){
         setBGM();
     }
     //bgm.play();
+    for (const elem of document.getElementsByClassName("keyboard-button")) {
+        elem.style.backgroundColor = "grey";
+    }
     currentGuess = [];
     nextLetter = 0;
     initializeGame();
