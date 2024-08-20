@@ -51,11 +51,11 @@ function setBGM(){
 }
 
 muteButton.onclick = function(){
-    if(bgm.getAttribute("muted") == false){
-        bgm.setAttribute("muted", true);
+    if(bgm.getAttribute("muted") == "false"){
+        bgm.setAttribute("muted", "true");
         muteButton.src = "no-sound.png";
     } else {
-        bgm.setAttribute("muted", false);
+        bgm.setAttribute("muted", "false");
         muteButton.src = "sound.png";
         setBGM();
     }
@@ -417,6 +417,5 @@ window.onload = () => {
     //bgm.src = "calmbgm.mp3";
     muteButton.src = "no-sound.png";
     muteButton.setAttribute("muted", true);
-    setBGM();
     initializeGame();
 };
