@@ -52,10 +52,10 @@ function setBGM(){
 
 muteButton.onclick = function(){
     if(bgm.getAttribute("muted") == "false"){
-        bgm.setAttribute("muted", "true");
+        bgm.setAttribute("muted", true);
         muteButton.src = "no-sound.png";
     } else {
-        bgm.setAttribute("muted", "false");
+        bgm.setAttribute("muted", false);
         muteButton.src = "sound.png";
         setBGM();
     }
