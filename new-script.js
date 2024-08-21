@@ -51,15 +51,20 @@ function setBGM(){
 }
 
 muteButton.onclick = function(){
-    if(bgm.getAttribute("muted") == "false"){
+    /*if(bgm.getAttribute("muted") == "false"){
         bgm.setAttribute("muted", true);
         muteButton.src = "no-sound.png";
     } else {
         bgm.setAttribute("muted", false);
         muteButton.src = "sound.png";
         setBGM();
+    }*/
+    bgm.muted = !bgm.muted;
+    if(muteButton.src.includes("no")){
+        muteButton.src = "sound.png";
+    } else {
+        muteButton.src = "no-sound.png"
     }
-
 }
 
 button1.onclick = function(){
