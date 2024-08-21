@@ -421,6 +421,7 @@ document.getElementById("keyboard-cont").addEventListener("click", (e) => {
 window.onload = () => {
     //bgm.src = "calmbgm.mp3";
     muteButton.src = "no-sound.png";
-    muteButton.setAttribute("muted", true);
+    setBGM();
+    bgm.setAttribute("muted", true);
     initializeGame();
 };
