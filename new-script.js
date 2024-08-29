@@ -311,3 +311,37 @@ document.getElementById("keyboard-cont").addEventListener("click", (e) => {
         }
     }
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+    const slider = document.getElementById('wordLengthSlider');
+    const gameBoard = document.getElementById('game-board');
+    const sliderVal = document.getElementById('slider-val');
+    const NUMBER_OF_GUESSES = 6;
+
+    function initBoard() {
+        const wordLength = slider.value;
+        gameBoard.innerHTML = ''; // Clear the board before re-creating it
+
+        for (let i = 0; i < NUMBER_OF_GUESSES; i++) {
+            const row = document.createElement('div');
+            row.className = 'letter-row';
+
+            for (let j = 0; j < wordLength; j++) {
+                const box = document.createElement('div');
+                box.className = 'letter-box';
+                row.appendChild(box);
+            }
+
+            gameBoard.appendChild(row);
+        }
+    }
+
+    // Initialize the board when the page loads
+    initBoard();
+
+    // Update the board when the slider value changes
+    slider.addEventListener('input', () => {
+        sliderVal.textContent = slider.value;
+        initBoard();
+    });
+});
