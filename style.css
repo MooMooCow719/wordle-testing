@@ -14,7 +14,6 @@ body {
 
 /* Title and title bar styles */
 #title {
-  font-family: 'Roboto', sans-serif;
   display: flex;
   justify-content: center;
   padding: 10px 0;
@@ -31,7 +30,6 @@ body {
 }
 
 #title-bar {
-  font-family: 'Roboto', sans-serif;
   background-color: #1f2229;
   margin: 0 0 10px 0;
   padding: 10px;
@@ -112,6 +110,7 @@ h1 {
   background-color: #8c8c8c;
 }
 
+/* Difficulty buttons */
 #extra-diff-buttons {
   display: flex;
   flex-direction: column;
@@ -271,12 +270,13 @@ input:checked + .slider:before {
 }
 
 /* Evil mode styles */
-[evilness="evil"] #title-bar {
-  background-color: black;
-}
-
 [evilness="evil"] body {
   background-color: red;
+  color: white; /* Ensure text is readable in evil mode */
+}
+
+[evilness="evil"] #title-bar {
+  background-color: black;
 }
 
 [evilness="evil"] #keyboard-cont div {
