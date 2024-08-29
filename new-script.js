@@ -19,9 +19,6 @@ let nextLetter = 0;
 let interactions = 0;
 
 // Event listeners
-document.addEventListener('click', startBGM);
-document.addEventListener('keypress', startBGM);
-
 slider.oninput = function () {
     wordLength = parseInt(this.value);
     output.innerHTML = wordLength;
@@ -253,7 +250,7 @@ async function checkGuess() {
 
         if (guessesRemaining === 0) {
             toastr.error("You've run out of guesses! Game over!");
-            toastr.info(The right word was: ${rightGuessString});
+            toastr.info(`The right word was: ${rightGuessString}`);
         }
     }
 }
@@ -265,13 +262,13 @@ const animateCSS = (element, animation, prefix = "animate__") =>
             return;
         }
 
-        const animationName = ${prefix}${animation};
+        const animationName = `${prefix}${animation}`;
         element.style.setProperty("--animate-duration", "0.3s");
-        element.classList.add(${prefix}animated, animationName);
+        element.classList.add(`${prefix}animated`, animationName);
 
         function handleAnimationEnd(event) {
             event.stopPropagation();
-            element.classList.remove(${prefix}animated, animationName);
+            element.classList.remove(`${prefix}animated`, animationName);
             resolve("Animation ended");
         }
 
@@ -316,25 +313,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const slider = document.getElementById('wordLengthSlider');
     const gameBoard = document.getElementById('game-board');
     const sliderVal = document.getElementById('slider-val');
-    const NUMBER_OF_GUESSES = 6;
-
-    function initBoard() {
-        const wordLength = slider.value;
-        gameBoard.innerHTML = ''; // Clear the board before re-creating it
-
-        for (let i = 0; i < NUMBER_OF_GUESSES; i++) {
-            const row = document.createElement('div');
-            row.className = 'letter-row';
-
-            for (let j = 0; j < wordLength; j++) {
-                const box = document.createElement('div');
-                box.className = 'letter-box';
-                row.appendChild(box);
-            }
-
-            gameBoard.appendChild(row);
-        }
-    }
 
     // Initialize the board when the page loads
     initBoard();
