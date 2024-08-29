@@ -1,56 +1,65 @@
+/* Basic styling for the HTML and body */
 html {
   font-family: 'Roboto', sans-serif;
   overflow-x: hidden;
 }
 
-body{
+body {
   font-family: 'Roboto', sans-serif;
-  color:azure;
+  color: azure;
   background-color: #2a2e36;
   overflow-x: hidden;
+  margin: 0;
 }
 
+/* Title and title bar styles */
 #title {
   font-family: 'Roboto', sans-serif;
-  display:flex;
+  display: flex;
   justify-content: center;
+  padding: 10px 0;
 }
 
-#mute{
+#mute {
   height: 90px;
   width: 90px;
   display: flex;
-  justify-content: right;
+  justify-content: center;
+  align-items: center;
   float: right;
   cursor: pointer;
 }
 
-
-
-#title-bar{
+#title-bar {
   font-family: 'Roboto', sans-serif;
   background-color: #1f2229;
-  margin: 0px 0px 10px 0px;
+  margin: 0 0 10px 0;
+  padding: 10px;
 }
 
+/* Heading style */
 h1 {
- text-align: center;
+  text-align: center;
+  margin: 0;
 }
 
+/* Slider container styles */
 .slidecontainer {
-  margin: 5px 10px 5px 10px;
-  padding: 3px 5px 3px 5px;
+  margin: 5px 10px;
+  padding: 3px 5px;
 }
 
+/* Game board styles */
 #game-board {
   display: flex;
   align-items: center;
   flex-direction: column;
+  margin-top: 20px;
 }
 
 .letter-box {
   border: 2px solid gray;
-  border-radius: 3px;
+  border-radius: 5px;
   margin: 2px;
   font-size: 2.5rem;
   font-weight: 700;
@@ -60,34 +69,32 @@ h1 {
   justify-content: center;
   align-items: center;
   text-transform: uppercase;
+  transition: background-color 0.3s, border-color 0.3s;
 }
 
 .filled-box {
-  border: 2px solid black;
+  border-color: black;
 }
 
 .letter-row {
   display: flex;
 }
 
+/* Keyboard container styles */
 #keyboard-cont {
   margin: 1rem 0;
   display: flex;
   flex-direction: column;
   align-items: center;
-  transform:scale(1.1);
 }
 
 #keyboard-cont div {
   display: flex;
   background-color: #1f2229;
-  transform:scale(1.1);
+  margin: 5px 0;
 }
 
-.second-row {
-  margin: 0.5rem 0;
-}
-
+/* Keyboard button styles */
 .keyboard-button {
   font-size: 1rem;
   font-weight: 700;
@@ -96,13 +103,18 @@ h1 {
   cursor: pointer;
   text-transform: uppercase;
   background-color: grey;
-  color:pink;
+  color: pink;
+  border-radius: 5px;
+  transition: background-color 0.3s, color 0.3s;
 }
 
-#extra-diff-buttons{
+.keyboard-button:hover {
+  background-color: #8c8c8c;
+}
+
+#extra-diff-buttons {
   display: flex;
   flex-direction: column;
-  justify-items: center;
   align-items: center;
 }
 
@@ -111,15 +123,15 @@ h1 {
   border: none;
   color: white;
   padding: 10px 21px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-flex;
   font-size: 16px;
   margin: 4px 2px;
   cursor: pointer;
   border-radius: 8px;
-  justify-content: center;
-  align-items: center;
+  transition: background-color 0.3s;
+}
+
+#fifteen:hover, #twenty:hover {
+  background-color: #e02222;
 }
 
 #ng {
@@ -127,15 +139,15 @@ h1 {
   border: none;
   color: white;
   padding: 20px 40px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-flex;
   font-size: 20px;
   margin: 4px 2px;
   cursor: pointer;
   border-radius: 8px;
-  justify-content: center;
-  align-items: center;
+  transition: background-color 0.3s;
+}
+
+#ng:hover {
+  background-color: #1e5bb5;
 }
 
 #ng-div {
@@ -144,6 +156,7 @@ h1 {
   align-items: center;
 }
 
+/* Slider styles */
 .slider {
   -webkit-appearance: none;
   width: 100%;
@@ -159,8 +172,9 @@ h1 {
   appearance: none;
   width: 25px;
   height: 25px;
-  background: #ffc0cb; 
+  background: #ffc0cb;
   cursor: pointer;
+  border-radius: 50%;
 }
 
 .slider::-moz-range-thumb {
@@ -168,8 +182,10 @@ h1 {
   height: 25px;
   background: #ffc0cb;
   cursor: pointer;
+  border-radius: 50%;
 }
 
+/* Switch styles */
 .switch {
   position: relative;
   display: inline-block;
@@ -183,7 +199,7 @@ h1 {
   height: 0;
 }
 
-#mode-slider {
+.switch .slider {
   position: absolute;
   cursor: pointer;
   top: 0;
@@ -192,9 +208,10 @@ h1 {
   bottom: 0;
   background: linear-gradient(135deg, #070F2B, #1a2449);
   transition: 0.4s;
+  border-radius: 34px;
 }
 
-.slider:before {
+.switch .slider:before {
   position: absolute;
   content: "";
   height: 26px;
@@ -203,13 +220,14 @@ h1 {
   bottom: 4px;
   background-color: white;
   transition: 0.4s;
+  border-radius: 50%;
 }
 
-input:checked + #mode-slider {
+input:checked + .slider {
   background: linear-gradient(135deg, #fbfca9, #f9f783);
 }
 
-input:focus + #mode-slider {
+input:focus + .slider {
   box-shadow: 0 0 1px #fbfca9;
 }
 
@@ -217,18 +235,7 @@ input:checked + .slider:before {
   transform: translateX(26px);
 }
 
-.slider.round {
-  border-radius: 34px;
-}
-
-.slider.round:before {
-  border-radius: 50%;
-}
-
-.slider.round:before {
-  border-radius: 50%;
-}
-
+/* Animation styles */
 @keyframes shake {
   0%, 100% { transform: translateX(0); }
   20%, 60% { transform: translateX(-10px); }
@@ -248,20 +255,22 @@ input:checked + .slider:before {
   animation: fall 1s ease forwards;
 }
 
+/* Light mode styles */
 [mode="light"] body {
   background-color: cornsilk;
-  color:black;
+  color: black;
 }
 
 [mode="light"] #title-bar {
   background-color: rgb(5, 154, 57);
-  color:#f8f8d4;
+  color: #f8f8d4;
 }
 
 [mode="light"] #keyboard-cont div {
   background-color: #ffffff;
 }
 
+/* Evil mode styles */
 [evilness="evil"] #title-bar {
   background-color: black;
 }
