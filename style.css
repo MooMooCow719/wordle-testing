@@ -1,45 +1,51 @@
-html {
-  font-family: 'Roboto', sans-serif;
-  overflow-x: hidden;
+:root {
+  --main-bg-color: #2a2e36;
+  --light-mode-bg: cornsilk;
+  --evil-mode-bg: red;
+  --title-bar-bg-dark: #1f2229;
+  --title-bar-bg-light: rgb(5, 154, 57);
+  --keyboard-bg-dark: #1f2229;
+  --keyboard-bg-light: #ffffff;
+  --text-color-dark: azure;
+  --text-color-light: black;
+  --button-bg-color: grey;
+  --button-hover-bg-color: #ccc;
+  --evil-button-text: #a10303;
 }
 
-body{
+html, body {
   font-family: 'Roboto', sans-serif;
-  color:azure;
-  background-color: #2a2e36;
+  color: var(--text-color-dark);
+  background-color: var(--main-bg-color);
   overflow-x: hidden;
+  margin: 0;
+  padding: 0;
 }
 
 #title {
-  font-family: 'Roboto', sans-serif;
-  display:flex;
+  display: flex;
   justify-content: center;
 }
 
-#mute{
+#mute {
   height: 90px;
   width: 90px;
-  display: flex;
-  justify-content: right;
   float: right;
   cursor: pointer;
 }
 
-
-
-#title-bar{
-  font-family: 'Roboto', sans-serif;
-  background-color: #1f2229;
-  margin: 0px 0px 10px 0px;
+#title-bar {
+  background-color: var(--title-bar-bg-dark);
+  margin: 0 0 10px 0;
 }
 
 h1 {
- text-align: center;
+  text-align: center;
 }
 
 .slidecontainer {
-  margin: 5px 10px 5px 10px;
-  padding: 3px 5px 3px 5px;
+  margin: 5px 10px;
+  padding: 3px 5px;
 }
 
 #game-board {
@@ -75,13 +81,13 @@ h1 {
   display: flex;
   flex-direction: column;
   align-items: center;
-  transform:scale(1.1);
+  transform: scale(1.1);
 }
 
 #keyboard-cont div {
   display: flex;
-  background-color: #1f2229;
-  transform:scale(1.1);
+  background-color: var(--keyboard-bg-dark);
+  transform: scale(1.1);
 }
 
 .second-row {
@@ -95,11 +101,15 @@ h1 {
   margin: 0 2px;
   cursor: pointer;
   text-transform: uppercase;
-  background-color: grey;
-  color:pink;
+  background-color: var(--button-bg-color);
+  color: pink;
 }
 
-#extra-diff-buttons{
+.keyboard-button:hover {
+  background-color: var(--button-hover-bg-color);
+}
+
+#extra-diff-buttons {
   display: flex;
   flex-direction: column;
   justify-items: center;
@@ -111,9 +121,6 @@ h1 {
   border: none;
   color: white;
   padding: 10px 21px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-flex;
   font-size: 16px;
   margin: 4px 2px;
   cursor: pointer;
@@ -122,20 +129,25 @@ h1 {
   align-items: center;
 }
 
+#fifteen:hover, #twenty:hover {
+  background-color: #ff5959; 
+}
+
 #ng {
   background-color: #297add;
   border: none;
   color: white;
   padding: 20px 40px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-flex;
   font-size: 20px;
   margin: 4px 2px;
   cursor: pointer;
   border-radius: 8px;
   justify-content: center;
   align-items: center;
+}
+
+#ng:hover {
+  background-color: #5290f0;
 }
 
 #ng-div {
@@ -154,16 +166,7 @@ h1 {
   transition: opacity .15s ease-in-out;
 }
 
-.slider::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 25px;
-  height: 25px;
-  background: #ffc0cb; 
-  cursor: pointer;
-}
-
-.slider::-moz-range-thumb {
+.slider::-webkit-slider-thumb, .slider::-moz-range-thumb {
   width: 25px;
   height: 25px;
   background: #ffc0cb;
@@ -194,17 +197,6 @@ h1 {
   transition: 0.4s;
 }
 
-.slider:before {
-  position: absolute;
-  content: "";
-  height: 26px;
-  width: 26px;
-  left: 4px;
-  bottom: 4px;
-  background-color: white;
-  transition: 0.4s;
-}
-
 input:checked + #mode-slider {
   background: linear-gradient(135deg, #fbfca9, #f9f783);
 }
@@ -225,10 +217,6 @@ input:checked + .slider:before {
   border-radius: 50%;
 }
 
-.slider.round:before {
-  border-radius: 50%;
-}
-
 @keyframes shake {
   0%, 100% { transform: translateX(0); }
   20%, 60% { transform: translateX(-10px); }
@@ -242,32 +230,34 @@ input:checked + .slider:before {
 
 .shake {
   animation: shake 0.5s ease-in-out;
+  will-change: transform;
 }
 
 .fall {
   animation: fall 1s ease forwards;
+  will-change: transform, opacity;
 }
 
 [mode="light"] body {
-  background-color: cornsilk;
-  color:black;
+  background-color: var(--light-mode-bg);
+  color: var(--text-color-light);
 }
 
 [mode="light"] #title-bar {
-  background-color: rgb(5, 154, 57);
-  color:#f8f8d4;
+  background-color: var(--title-bar-bg-light);
+  color: #f8f8d4;
 }
 
 [mode="light"] #keyboard-cont div {
-  background-color: #ffffff;
+  background-color: var(--keyboard-bg-light);
+}
+
+[evilness="evil"] body {
+  background-color: var(--evil-mode-bg);
 }
 
 [evilness="evil"] #title-bar {
   background-color: black;
-}
-
-[evilness="evil"] body {
-  background-color: red;
 }
 
 [evilness="evil"] #keyboard-cont div {
@@ -275,5 +265,22 @@ input:checked + .slider:before {
 }
 
 [evilness="evil"] .keyboard-button {
-  color: #a10303;
+  color: var(--evil-button-text);
+}
+
+@media (max-width: 768px) {
+  .letter-box {
+    font-size: 2rem;
+    height: 2.5rem;
+    width: 2.5rem;
+  }
+
+  #keyboard-cont {
+    transform: scale(0.9); 
+  }
+
+  #ng {
+    padding: 15px 30px;
+    font-size: 18px;
+  }
 }
