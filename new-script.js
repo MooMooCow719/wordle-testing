@@ -1,143 +1,217 @@
-// DOM elements
 const slider = document.getElementById("wordLengthSlider");
 const output = document.getElementById("slider-val");
 const button1 = document.getElementById("fifteen");
 const button2 = document.getElementById("twenty");
 const button3 = document.getElementById("ng");
 const modeToggle = document.getElementById('mode-toggle');
-const bgm = document.getElementById("bgm");
+let bgm = document.getElementById("bgm");
 const muteButton = document.getElementById("mute");
+//bgm.src = "calmbgm.mp3";
 
-// Initial values
 let wordLength = parseInt(slider.value);
 let rightGuessString = '';
-const NUMBER_OF_GUESSES_DEFAULT = 6;
-let NUMBER_OF_GUESSES = NUMBER_OF_GUESSES_DEFAULT;
+let NUMBER_OF_GUESSES = 6;
 let guessesRemaining = NUMBER_OF_GUESSES;
 let currentGuess = [];
 let nextLetter = 0;
 let interactions = 0;
 
-// Event listeners
-document.addEventListener('click', startBGM);
-document.addEventListener('keypress', startBGM);
-
-slider.oninput = function () {
-    wordLength = parseInt(this.value);
-    output.innerHTML = wordLength;
-    resetGameSettings();
-    initializeGame();
-};
-
-function startBGM() {
-    if (interactions === 0) {
+document.addEventListener('click', function startBGM() {
+    if(interactions === 0){
         setBGM();
     }
     interactions++;
-}
+});
+document.addEventListener('keypress', function startBGM() {
+    if(interactions === 0){
+        setBGM();
+    }
+    interactions++;
+});
 
-function setBGM() {
+
+slider.oninput = function() {    
+    wordLength = parseInt(this.value);
+    output.innerHTML = wordLength;
+    for (const elem of document.getElementsByClassName("keyboard-button")) {
+        elem.style.backgroundColor = "grey";
+    }
+    NUMBER_OF_GUESSES = 6;
+    guessesRemaining = 6;
+    currentGuess = [];
+    nextLetter = 0;
+    initializeGame();
+    //bgm.src = "calmbgm.mp3";
+    //initBoard();
+
+};
+
+function setBGM(){
     bgm.src = "calmbgm.mp3";
 }
 
-muteButton.onclick = function () {
+muteButton.onclick = function(){
+    /*if(bgm.getAttribute("muted") == "false"){
+        bgm.setAttribute("muted", true);
+        muteButton.src = "no-sound.png";
+    } else {
+        bgm.setAttribute("muted", false);
+        muteButton.src = "sound.png";
+        setBGM();
+    }*/
     bgm.muted = !bgm.muted;
-    muteButton.src = bgm.muted ? "no-sound.png" : "sound.png";
+    if(muteButton.src.includes("no")){
+        muteButton.src = "sound.png";
+    } else {
+        muteButton.src = "no-sound.png"
+    }
 }
 
-button1.onclick = function () {
-    setGameSettings(15, 9);
+button1.onclick = function(){
+    wordLength = 15;
+    output.innerHTML = wordLength;
+    NUMBER_OF_GUESSES = 9;
+    guessesRemaining = 9;
+    currentGuess = [];
+    nextLetter = 0;
+    for (const elem of document.getElementsByClassName("keyboard-button")) {
+        elem.style.backgroundColor = "grey";
+    }
     initializeGame();
+    //initBoard();
+
 }
 
-button2.onclick = function () {
-    setGameSettings(20, 12);
-    triggerAnimations();
+button2.onclick = function(){
+    wordLength = 20;
+    output.innerHTML = wordLength;
+    NUMBER_OF_GUESSES = 12;
+    guessesRemaining = 12;
+    currentGuess = [];
+    nextLetter = 0;
+
+    slider.classList.add('shake');
+    button1.classList.add('shake');
+    modeToggle.classList.add('shake');
+
+    setTimeout(function() {
+        slider.classList.remove('shake');
+        button1.classList.remove('shake');
+        modeToggle.classList.remove('shake');
+
+        slider.classList.add('fall');
+        button1.classList.add('fall');
+        modeToggle.classList.add('fall');
+    }, 2000);
+
     document.documentElement.setAttribute('evilness', 'evil');
     bgm.src = "evilbgm.mp3";
+
+
+
+    //document.getElementById('title-bar').style.backgroundColor = "black";
+    //document.body.style.backgroundColor = "red";
+
+
     initializeGame();
-    alert("Evil mode activated!");
+    //initBoard();
+ 
+
+
+
+
+
+    alert("a̴̧̧̨̧̡̧̰͈̬̼̥̫̭͎͇̺̤̩̯͔̪̞̺͑͆̅̉̍̂̽͐̇͐̓͆̽͗̀̃̀̎̾̌̽̋͊̑͜͜͝͝b̶̧̦̪͔̳̞̦̞̮̠̥͔͈̗̤̝̗͍̟̱͕͎̦̝̦̥̤̱͙̱̰̦͑̏̏̽̓̀͂̀̓̅̒̅͒̈̏͑͘̚̚͝ͅå̴̢͈̲̘̩̱͍̥̹̣͉͙̩̫̜̙̦̟̬̘̖̮̙̹̞̳̥̱̤̼̭͎͊̏͌͌̈́̍̈́̇̒̿̀̋͊̓̈͒͘͘̚͜͠n̵̢̗̜̠̥̞̈́̄̐́͋̂͠͝͝d̴̨̛̞̗̟̩͙̤̤̑̐̀̍̂̂̈́̿͌̑͆̏̆̊͋̾͘͝ở̶̧̟͇̯͇̥̰̜̟͈̈́̂͛̌͂́̂̾̏͌̄̑͘ǹ̷̡̠̘͚̠̙̣͔̝͍̞̞̟̙̪̠̟̳̩̏̔͛̍̏̎͂̑́̌͑́́͒̇͆̋̅̕͠͠ͅͅ ̴̡̧̢̡̢̡̡͙̯͖̺̠̬̣͎͇̦̖͙̖̰͍̙̥̦͎̝̹͇̪̳̳̳̣̱͇̫͎̺̪̹̬͕̾̂͊̐͗̑̆̀̎͒̓̓̅͋͘͝͝ͅͅa̶̧̛͍̳̫̱͓̗͕̘̱̟͉̺͍̗͈͚͇̭̮̦͉̝̜̥̰̤͔̭̳͎̿̿̾͌̏͛͛̆̾̏́̈́̈́̌̀̓̊̄̆̀̓̔̂̀̃̾͂̎́̑̍̐̈́̔̉̇̎̅͆̓̓͐̿̄̽͐̚͜͝͠ͅl̶̡̨̧̡̢̧̫͍̰̺̹͔͎͖͙̘͎̫̮̟̟̭̦̪͙̠͖̞̞͕̰͙͖̤̬͔̰͔̩̮̲̈́̎̅̔̐́̏̄̔̆͛͛̊̒̽͛̽̒̽̀͘̚l̷̨̧̛̯̤̮̼̻̖͔͉͕̟̯͍̻̱̘̟̙̳̘̪̠̦̖͇͍͎̉̊͒̍̂̚͜͝͠ͅ ̸̢̢̡̡̨̛̞̦̠̠̹̟̺̘͎͈̳̞̞͕͈̻̳̯̖̲̗̪̯̠̩̪̬̭̓̾̌̍̅͌͆̐̔̿̈́̀̏̈́̎̿͋͑͛̐͑͑̐̔̈̀͗͐̽̀̊̍̋̽̎̏̈̎̓̎̆̄͆̑́̚͜͠͝h̷̡͉̩̳̜̹͈̦̘͔͉̟̠̺̩̼͈̞̹͔͚̮̤͓͗̓̾̈́͌̐̓́̑̈̌̍͂̈́̊̍̇̅͆̎͒̃̿̌̉͌͌͆́̉̔̾͊͊͑̒̚͘̚̕͜͜͠͝͝͝ȍ̵͖̼͙̮̞̼̘͓͖̜͖͚̥͍͔̣̪͈̪̻̇̽̀̎̈́̂̈̇͆̇̉̓̒̋́̾́̔̔̾ͅp̶̡̢̣̥̣̦͎̻̣̗̗̼̭̦̦̠̮͕͓̟͕͙̠̩̠̰̦̣̈̍ͅë̸͉̙̗͔̼̣̙̍̌̐̆͘ ̴̢̢̢̧̛͈̮̰͉̦̩̖͎̼̼̰͔͖̹̙̯̪͇͉̫͈̉̾͌͆̇͂̊̽̀̂̈̔̌̓̃̀͑̑̍́̈́̃̊̅̐̓̀̐͠͝͠y̴̢̢̡̛̛̻̮̩̙̘̹͓͎̥̬̞̘̯̟͈͍̞̋͗̀̅̑̏̓̂̎̉̂̋̋̄͑̊́̉̆͋̈̾́̈́͝͝͝ͅḛ̵̛̓̃̇͌͑͛͛͐̍͋̐̌͑̓̅̈́̽̅̿̈́͂͌͆̈̊́̈́͘͘̚͝ ̷̭̤͔̳̳̰̮͔̹̗͋̐̽̅̿̉̏̑̄̊̈́̐́̽͛̆́̒̈̈̚̕ͅw̶̯͍̫̉̉̐͊͒͐́̋̆͌̐̔͋̐͋͗̀̅͆́̊̿̈́̇̆̂̊̓͘̚͠͝͝h̴̡̛̞̖̲͕͓̳͚̲͔̗̲͓͔̺̘͓́̎͌̎̀̈́̄͑̀̄͊͛̅̊̐͆͂̆̆̿̆̃͒̋̈́͋̏͘̕̕͜͠͠͠o̴̧̝̯̱͖͙͌̈͗̓̈̀́̏̇̉̀͋̏͑̒͂͊̅́̐̊̓͋̑͋̈́̔̈́̌͆͗̂̆͆̆̊̎̈́͘̚̕͘͝͝͝͝͝ ̴̢̨̛̛͕̮̣͖͍͓̠̘͓̳̮͍̪̤̇͐͒̒͋͂́̊̌̈́̎̊̍̌̍̎̐̔̾͋̔̍̀̓̍̌̾͂̊̎̅̓́̆͆̓̀̒͘̕̕͝͠͠e̷̡̧̨̜̤̦̘̝͙̹̺̩̟̲̠̾̀̾͛̽̓̂͋̉̋́̿̂̇̀́̓͂̎͘ñ̸̢̥͍̼̭̺̦̰̪͈̀̽̄̀̒̎̂͘͜ͅţ̶̡̥̯̝̬̝̰̦̫̱̟̭͙̪̱̝̓̀̈́̅̒̓͊̋̀͆͑̀̋̄͒̀̽̍̋͊̋͒̅̀̏͗͗͋͗͘̚̚̚͝ę̸̨̨̘̫̟̠̪̝͖͔͍͇̘͔̤̯̯̠͙̰̱̬̥̘͓̼̻̟̮̦͕͉̫̈́̒̉̊͌̏̊̑͋̄̓͐̃̂̃̑͒͒́̉͊̚͘̕̕͝ͅͅȑ̶̨̨̧̻̠̭͖͔̺̟̗͔͔̦͖͇̲̣̘̝̫̠̟͔̜̩̦̲͖͉̪̪͔̭̫̟̜͍̦̫̲̎͒̊͒̂̊̄͜ͅͅ ̷̢̧̡̢̧̛͎͚̖̣͕̪̯̲̯̲͖̭͉̝̠̳͇͍̺̠̞͚͓̥̖͕͖̱͖͉̖̠͙͙̙̝͚͎̹͍̻̮̐̓͆̓̃̂̽̂̓̏̈́͆̎̐͂̄̇͒͒̒̈́̇͌̎̌̚̕͜͝͝h̴̡̡̢̞̞̦̱̭̲̗̣̰̬̰̳̘̥͕̝̦͕͉͖̺̜̪͕͍̤̗͖̻̖̥̲̤̳̪͓̙̟͖̜͓̱͖̫̫̏̒̾͆̇͐͒̎͂͐̕͝ḙ̵̛̲̬̭͉͙̖̱̉̈̆̾̄̎̊̓͐͑̈͌͌̄̆̏͂̋̐̎̈́̈̂͆̌͘͘͜ͅr̴͓̗͎͔̣̙̥̱̪̥̹͍͚̠̦͙͚̿͌̊͒̀͆̿̅̌̓͘͘͝͝ͅe̴̡̨̨̧̛̛̖̘͔̟̩̤̬͚͓̹͈͚̖͈̳͔̣̠̱̘͎̙͕̟̩̻̫͍̫͈͚͍̜̬̟̼̬̥̻̾͊̽̈́̊̀̄͌̈́͌̎̉́̆̎͌̈̓͒̏̈́̄͋́̀̀͌̆͆̓͐̈́̀̍͋̽̅̍̓͒̋͗͊̕͜͜͠͠͝");
+
+
+
+
+
 }
 
-button3.onclick = function () {
+button3.onclick = function(){
     if (wordLength < 11) {
-        setGameSettings(wordLength, 6);
+        NUMBER_OF_GUESSES = 6;
+        guessesRemaining = 6;
     } else if (wordLength < 20) {
-        setGameSettings(wordLength, 9);
+        NUMBER_OF_GUESSES = 9;
+        guessesRemaining = 9;
     } else {
         window.location.reload();
+        console.log("reloaded!");
     }
-    resetGameSettings();
-    initializeGame();
-}
-
-function setGameSettings(length, guesses) {
-    wordLength = length;
-    output.innerHTML = wordLength;
-    NUMBER_OF_GUESSES = guesses;
-    guessesRemaining = guesses;
-    resetGameSettings();
-}
-
-function resetGameSettings() {
+    slider.classList.remove('fall');
+    button1.classList.remove('fall');
+    modeToggle.classList.remove('fall');
+    document.documentElement.removeAttribute('evilness');
+    if (bgm.src.includes("evil")){
+        setBGM();
+    }
+    //bgm.play();
     for (const elem of document.getElementsByClassName("keyboard-button")) {
         elem.style.backgroundColor = "grey";
     }
     currentGuess = [];
     nextLetter = 0;
-}
-
-function triggerAnimations() {
-    slider.classList.add('shake');
-    button1.classList.add('shake');
-    modeToggle.classList.add('shake');
-
-    setTimeout(function () {
-        slider.classList.remove('shake');
-        button1.classList.remove('shake');
-        modeToggle.classList.remove('shake');
-        slider.classList.add('fall');
-        button1.classList.add('fall');
-        modeToggle.classList.add('fall');
-    }, 2000);
+    initializeGame();
 }
 
 import { okWORDS } from "./okwords.js";
+
 let WORDS;
 
 async function initializeGame() {
-    let modulePath = getModulePath(wordLength);
+    let modulePath = '';
+
+    switch (wordLength) {
+        case '5':
+            modulePath = './5words.js';
+            break;
+        case 5:
+            modulePath = "./5words.js";
+            break;
+        case 6:
+            modulePath = './6words.js';
+            break;
+        case 7:
+            modulePath = './7words.js';
+            break;
+        case 8:
+            modulePath = './8words.js';
+            break;
+        case 9:
+            modulePath = './9words.js';
+            break;
+        case 10:
+            modulePath = './10words.js';
+            break;
+        case 15:
+            modulePath = './15words.js';
+            break;
+        case 20:
+            modulePath = './20words.js';
+            break;
+        default:
+            console.error('Unsupported word length');
+            return;
+    }
 
     try {
         const module = await import(modulePath);
         ({ WORDS } = module);
         rightGuessString = WORDS[Math.floor(Math.random() * WORDS.length)];
         console.log('Right guess string:', rightGuessString);
+        //bgm.src = "calmbgm.mp3";
+        console.log(bgm.src);
         initBoard();
     } catch (error) {
         console.error('Error loading words module:', error);
     }
 }
 
-function getModulePath(length) {
-    switch (length) {
-        case 5: return './5words.js';
-        case 6: return './6words.js';
-        case 7: return './7words.js';
-        case 8: return './8words.js';
-        case 9: return './9words.js';
-        case 10: return './10words.js';
-        case 15: return './15words.js';
-        case 20: return './20words.js';
-        default:
-            console.error('Unsupported word length');
-            return '';
-    }
-}
-
 function initBoard() {
     let board = document.getElementById("game-board");
-    board.innerHTML = '';
+    board.innerHTML = ''; 
 
     for (let i = 0; i < NUMBER_OF_GUESSES; i++) {
         let row = document.createElement("div");
@@ -157,8 +231,14 @@ function shadeKeyBoard(letter, color) {
     for (const elem of document.getElementsByClassName("keyboard-button")) {
         if (elem.textContent === letter) {
             let oldColor = elem.style.backgroundColor;
-            if (oldColor === "green") return;
-            if (oldColor === "yellow" && color !== "green") return;
+            if (oldColor === "green") {
+                return;
+            }
+
+            if (oldColor === "yellow" && color !== "green") {
+                return;
+            }
+
             elem.style.backgroundColor = color;
             break;
         }
@@ -166,14 +246,22 @@ function shadeKeyBoard(letter, color) {
 }
 
 function insertLetter(pressedKey) {
-    if (nextLetter >= wordLength) return;
-
+    if (nextLetter >= wordLength) {
+        return;
+    }
     pressedKey = pressedKey.toLowerCase();
+
     let row = document.getElementsByClassName("letter-row")[NUMBER_OF_GUESSES - guessesRemaining];
-    if (!row) return;
+    if (!row) {
+        console.error("Row not found");
+        return;
+    }
 
     let box = row.children[nextLetter];
-    if (!box) return;
+    if (!box) {
+        console.error("Box not found");
+        return;
+    }
 
     animateCSS(box, "pulse").catch(console.error);
     box.textContent = pressedKey;
@@ -184,10 +272,16 @@ function insertLetter(pressedKey) {
 
 function deleteLetter() {
     let row = document.getElementsByClassName("letter-row")[NUMBER_OF_GUESSES - guessesRemaining];
-    if (!row) return;
+    if (!row) {
+        console.error("Row not found");
+        return;
+    }
 
     let box = row.children[nextLetter - 1];
-    if (!box) return;
+    if (!box) {
+        console.error("Box not found");
+        return;
+    }
 
     box.textContent = "";
     box.classList.remove("filled-box");
@@ -196,7 +290,10 @@ function deleteLetter() {
 }
 
 async function checkGuess() {
-    if (!rightGuessString) return;
+    if (!rightGuessString) {
+        console.error("rightGuessString is not set");
+        return;
+    }
 
     let row = document.getElementsByClassName("letter-row")[NUMBER_OF_GUESSES - guessesRemaining];
     let guessString = currentGuess.join('');
@@ -212,19 +309,19 @@ async function checkGuess() {
         return;
     }
 
-    let letterColor = Array(wordLength).fill("gray");
+    var letterColor = Array(wordLength).fill("gray");
 
     for (let i = 0; i < wordLength; i++) {
-        if (rightGuess[i] === currentGuess[i]) {
+        if (rightGuess[i] == currentGuess[i]) {
             letterColor[i] = "green";
             rightGuess[i] = "#";
         }
     }
 
     for (let i = 0; i < wordLength; i++) {
-        if (letterColor[i] === "green") continue;
+        if (letterColor[i] == "green") continue;
         for (let j = 0; j < wordLength; j++) {
-            if (rightGuess[j] === currentGuess[i]) {
+            if (rightGuess[j] == currentGuess[i]) {
                 letterColor[i] = "yellow";
                 rightGuess[j] = "#";
             }
@@ -233,7 +330,10 @@ async function checkGuess() {
 
     for (let i = 0; i < wordLength; i++) {
         let box = row.children[i];
-        if (!box) return;
+        if (!box) {
+            console.error("Box not found");
+            return;
+        }
 
         let delay = 250 * i;
         setTimeout(() => {
@@ -246,6 +346,7 @@ async function checkGuess() {
     if (guessString === rightGuessString) {
         toastr.success("You guessed right! Game over!");
         guessesRemaining = 0;
+        return;
     } else {
         guessesRemaining -= 1;
         currentGuess = [];
@@ -253,7 +354,7 @@ async function checkGuess() {
 
         if (guessesRemaining === 0) {
             toastr.error("You've run out of guesses! Game over!");
-            toastr.info(The right word was: ${rightGuessString});
+            toastr.info(`The right word was: "${rightGuessString}"`);
         }
     }
 }
@@ -265,13 +366,13 @@ const animateCSS = (element, animation, prefix = "animate__") =>
             return;
         }
 
-        const animationName = ${prefix}${animation};
+        const animationName = `${prefix}${animation}`;
         element.style.setProperty("--animate-duration", "0.3s");
-        element.classList.add(${prefix}animated, animationName);
+        element.classList.add(`${prefix}animated`, animationName);
 
         function handleAnimationEnd(event) {
             event.stopPropagation();
-            element.classList.remove(${prefix}animated, animationName);
+            element.classList.remove(`${prefix}animated`, animationName);
             resolve("Animation ended");
         }
 
@@ -279,9 +380,11 @@ const animateCSS = (element, animation, prefix = "animate__") =>
     });
 
 document.addEventListener("keyup", (e) => {
-    if (guessesRemaining === 0) return;
+    if (guessesRemaining === 0) {
+        return;
+    }
 
-    let pressedKey = e.key;
+    let pressedKey = String(e.key);
     if (pressedKey === "Backspace" && nextLetter !== 0) {
         deleteLetter();
         return;
@@ -292,7 +395,10 @@ document.addEventListener("keyup", (e) => {
         return;
     }
 
-    if (/^[a-zA-Z]$/.test(pressedKey)) {
+    let found = pressedKey.match(/[a-z]/gi);
+    if (!found || found.length > 1) {
+        return;
+    } else {
         insertLetter(pressedKey);
     }
 });
@@ -300,48 +406,22 @@ document.addEventListener("keyup", (e) => {
 document.getElementById("keyboard-cont").addEventListener("click", (e) => {
     const target = e.target;
 
-    if (target.classList.contains("keyboard-button")) {
-        let key = target.textContent;
-        if (key === "Backspace") {
-            deleteLetter();
-        } else if (key === "Enter") {
-            checkGuess();
-        } else {
-            insertLetter(key);
-        }
+    if (!target.classList.contains("keyboard-button")) {
+        return;
     }
-});
+    let key = target.textContent;
 
-document.addEventListener('DOMContentLoaded', () => {
-    const slider = document.getElementById('wordLengthSlider');
-    const gameBoard = document.getElementById('game-board');
-    const sliderVal = document.getElementById('slider-val');
-    const NUMBER_OF_GUESSES = 6;
-
-    function initBoard() {
-        const wordLength = slider.value;
-        gameBoard.innerHTML = ''; // Clear the board before re-creating it
-
-        for (let i = 0; i < NUMBER_OF_GUESSES; i++) {
-            const row = document.createElement('div');
-            row.className = 'letter-row';
-
-            for (let j = 0; j < wordLength; j++) {
-                const box = document.createElement('div');
-                box.className = 'letter-box';
-                row.appendChild(box);
-            }
-
-            gameBoard.appendChild(row);
-        }
+    if (key === "Del") {
+        key = "Backspace";
     }
 
-    // Initialize the board when the page loads
-    initBoard();
-
-    // Update the board when the slider value changes
-    slider.addEventListener('input', () => {
-        sliderVal.textContent = slider.value;
-        initBoard();
-    });
+    document.dispatchEvent(new KeyboardEvent("keyup", { key: key }));
 });
+
+window.onload = () => {
+    //bgm.src = "calmbgm.mp3";
+    muteButton.src = "no-sound.png";
+    setBGM();
+    bgm.setAttribute("muted", true);
+    initializeGame();
+};
